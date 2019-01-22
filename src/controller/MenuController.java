@@ -8,6 +8,6 @@ public class MenuController {
 	}
 	public void quitApplication()
 	{
-		
+		System.exit(0);
 	}
 }
