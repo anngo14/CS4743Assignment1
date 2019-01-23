@@ -6,11 +6,13 @@ import java.util.ResourceBundle;
 import model.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 
 public class BookListController implements Initializable{
@@ -32,6 +34,14 @@ public class BookListController implements Initializable{
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
+		// TODO: Implement correct behavior for double-clicking table row
+		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					System.out.println("Double click detected");
+				}
+			}
+		});
 	}
 
 }
