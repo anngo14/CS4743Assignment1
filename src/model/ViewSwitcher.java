@@ -8,26 +8,14 @@ import javafx.stage.Stage;
 public class ViewSwitcher {
 
 	private String viewName;
-	private Stage primaryStage;
 	
-	public ViewSwitcher(String name, Stage stage) throws Exception
+	public ViewSwitcher(String name) throws Exception 
 	{
 		viewName = name;
-		primaryStage = stage;
 		changeView();
 	}
 	
 	public void changeView() throws Exception
 	{
-		try
-		{
-			Parent root=FXMLLoader.load(getClass().getResource(viewName));
-			Scene scene = new Scene(root, 1000, 800);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 }
