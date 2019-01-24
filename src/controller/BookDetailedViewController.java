@@ -2,32 +2,38 @@ package controller;
 
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Book;
 
-public class BookDetailedViewController {
+public class BookDetailedViewController implements Initializable{
 
 	@FXML
 	TextField bookTitle;
 	@FXML
 	TextField bookISBN;
 	@FXML
-	TextField bookYear;
-	@FXML
 	TextArea bookSummary;
 	@FXML
 	AnchorPane content;
+	@FXML 
+	ComboBox yearPick;
 	
 	public void saveBook()
 	{
 		String title = bookTitle.getText();
 		String isbn = bookISBN.getText();
-		int year = Integer.parseInt(bookYear.getText());
+		int year = (int) yearPick.getValue();
+		System.out.println("Year Published : " + year);
 		String summary = bookSummary.getText();
 		
 		Book bookToInsert = new Book(title, isbn, summary, year);
@@ -39,5 +45,16 @@ public class BookDetailedViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
+		for(int i = 1900; i <= 2019; i++)
+		{
+			possibleYears.add(i);
+		}
+		yearPick.getItems().addAll(possibleYears);
 	}
 }

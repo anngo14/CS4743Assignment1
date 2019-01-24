@@ -32,11 +32,6 @@
             <Font size="26.0" />
          </font>
       </TextArea>
-      <TextField fx:id="bookYear" layoutX="629.0" layoutY="25.0">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </TextField>
       <TextField fx:id="bookTitle" layoutX="129.0" layoutY="23.0" prefHeight="56.0" prefWidth="370.0">
          <font>
             <Font size="26.0" />
@@ -52,5 +47,6 @@
             <Font size="28.0" />
          </font>
       </Button>
+      <ComboBox fx:id="yearPick" layoutX="626.0" layoutY="21.0" prefHeight="56.0" prefWidth="327.0" promptText="Year Published" />
    </children>
 </AnchorPane>
