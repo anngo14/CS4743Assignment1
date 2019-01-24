@@ -44,6 +44,10 @@ public class BookListController implements Initializable{
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 					try {
+						int index = bookTable.getSelectionModel().getSelectedIndex();
+						System.out.println("Cell clicked = " + title.getCellData(index));
+						Book selected = (Book) bookTable.getSelectionModel().getSelectedItem();
+						System.out.println("Book Title: " + selected.getTitle() + " Book ISBN: " + selected.getISBN() + " Book Summary: " + selected.getSummary() + " Book Year Published: " + selected.getYear());
 						AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/BookDetailedView.fxml"));
 						content.getChildren().setAll(pane);
 					} catch (IOException e) {

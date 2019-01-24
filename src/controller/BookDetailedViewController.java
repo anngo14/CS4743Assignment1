@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.Book;
 
 public class BookDetailedViewController {
 
@@ -24,6 +25,13 @@ public class BookDetailedViewController {
 	
 	public void saveBook()
 	{
+		String title = bookTitle.getText();
+		String isbn = bookISBN.getText();
+		int year = Integer.parseInt(bookYear.getText());
+		String summary = bookSummary.getText();
+		
+		Book bookToInsert = new Book(title, isbn, summary, year);
+		
 		try {
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/BookListView.fxml"));
 			content.getChildren().setAll(pane);
