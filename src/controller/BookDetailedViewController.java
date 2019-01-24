@@ -28,6 +28,8 @@ public class BookDetailedViewController implements Initializable{
 	@FXML 
 	ComboBox yearPick;
 	
+	Book tempBook;
+	
 	public void saveBook()
 	{
 		String title = bookTitle.getText();
@@ -36,8 +38,10 @@ public class BookDetailedViewController implements Initializable{
 		System.out.println("Year Published : " + year);
 		String summary = bookSummary.getText();
 		
-		Book bookToInsert = new Book(title, isbn, summary, year);
-		
+		tempBook.setTitle(title);
+		tempBook.setISBN(isbn);
+		tempBook.setYear(year);
+		tempBook.setSummary(summary);
 		try {
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/BookListView.fxml"));
 			content.getChildren().setAll(pane);
@@ -56,5 +60,14 @@ public class BookDetailedViewController implements Initializable{
 			possibleYears.add(i);
 		}
 		yearPick.getItems().addAll(possibleYears);
+	}
+	
+	public void initData(Book bookToEdit)
+	{
+		tempBook = bookToEdit;
+		bookTitle.setText(bookToEdit.getTitle());
+		bookISBN.setText(bookToEdit.getISBN());
+		bookSummary.setText(bookToEdit.getSummary());
+		yearPick.setValue(bookToEdit.getYear());
 	}
 }
