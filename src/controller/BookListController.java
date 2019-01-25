@@ -11,15 +11,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.scene.Node;
+
 
 
 
@@ -38,7 +35,7 @@ public class BookListController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Book test = new Book("Title", "ISBN", "SUMMARY", 2019);
-		Book test2 = new Book("Test" , "ISBN", "N/A", 2019);
+		Book test2 = new Book("Test" , "ISBN", "N/A", 1990);
 
 		bookList.add(test);
 		bookList.add(test2);
@@ -54,19 +51,16 @@ public class BookListController implements Initializable{
 						System.out.println("Cell clicked = " + title.getCellData(index));
 						Book selected = (Book) bookTable.getSelectionModel().getSelectedItem();
 						System.out.println("Book Title: " + selected.getTitle() + " Book ISBN: " + selected.getISBN() + " Book Summary: " + selected.getSummary() + " Book Year Published: " + selected.getYear());
-						//AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/BookDetailedView.fxml"));
+						
 						FXMLLoader loader = new FXMLLoader();
 						loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
-						Parent root = (Parent) loader.load();
-						Scene scene = new Scene(root);
+						
+						AnchorPane pane = loader.load();
 						BookDetailedViewController controller = loader.getController();
+						
 						controller.initData((Book) bookTable.getSelectionModel().getSelectedItem());
-						Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-						window.setScene(scene);
-						window.show();
-						//content.getChildren().setAll(pane);
+						content.getChildren().setAll(pane);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
