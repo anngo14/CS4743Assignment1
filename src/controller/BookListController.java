@@ -17,10 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-
-
-
-
 public class BookListController implements Initializable{
 
 	private ArrayList<Book> bookList = new ArrayList<Book>();
@@ -44,33 +40,36 @@ public class BookListController implements Initializable{
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
-		// TODO: Implement correct behavior for double-clicking table row
 		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					try {
-						int index = bookTable.getSelectionModel().getSelectedIndex();
-						System.out.println("Cell clicked = " + title.getCellData(index));
-						Book selected = (Book) bookTable.getSelectionModel().getSelectedItem();
-						System.out.println("Book Title: " + selected.getTitle() + " Book ISBN: " + selected.getISBN() + " Book Summary: " + selected.getSummary() + " Book Year Published: " + selected.getYear());
-						
-						FXMLLoader loader = new FXMLLoader();
-						loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
-						
-						AnchorPane pane = loader.load();
-						BookDetailedViewController controller = loader.getController();
-						
-						controller.initData((Book) bookTable.getSelectionModel().getSelectedItem());
-						bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
-						System.out.println("" + bookList.size());
-
-						content.getChildren().setAll(pane);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					handleDoubleClick(event);
 				}
 			}
 		});
+	}
+	
+	private void handleDoubleClick(MouseEvent event) {
+		try {
+			int index = bookTable.getSelectionModel().getSelectedIndex();
+			System.out.println("Cell clicked = " + title.getCellData(index));
+			Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
+			System.out.println("Book Title: " + selectedBook.getTitle() + " Book ISBN: " + selectedBook.getISBN() + " Book Summary: " + selectedBook.getSummary() + " Book Year Published: " + selectedBook.getYear());
+			
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
+			
+			AnchorPane pane = loader.load();
+			BookDetailedViewController bookeDetailedViewController = loader.getController();
+			
+			bookeDetailedViewController.initData((Book) bookTable.getSelectionModel().getSelectedItem());
+			bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
+			System.out.println("" + bookList.size());
+			
+			content.getChildren().setAll(pane);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void initData(Book editedBook)

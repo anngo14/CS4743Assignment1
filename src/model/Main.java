@@ -15,16 +15,14 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		try
-		{
-			Parent root=FXMLLoader.load(getClass().getResource("/view/MenuBar.fxml"));
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/MenuBar.fxml"));
 			Scene scene = new Scene(root, 1000, 800);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Book List");
 			primaryStage.getIcons().add(new Image("view/download.png"));
 			primaryStage.show();
-		} catch(Exception e)
-		{
+		} catch(Exception e) {
 			e.printStackTrace();
 		}	
 	}

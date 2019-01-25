@@ -32,35 +32,29 @@ public class BookDetailedViewController implements Initializable{
 	
 	public void saveBook()
 	{
-		String title = bookTitle.getText();
-		String isbn = bookISBN.getText();
-		int year = (int) yearPick.getValue();
-		System.out.println("Year Published : " + year);
-		String summary = bookSummary.getText();
+		System.out.println("Year Published : " + (int) yearPick.getValue());
 		
-		tempBook.setTitle(title);
-		tempBook.setISBN(isbn);
-		tempBook.setYear(year);
-		tempBook.setSummary(summary);
+		tempBook.setTitle(bookTitle.getText());
+		tempBook.setISBN(bookISBN.getText());
+		tempBook.setYear((int) yearPick.getValue());
+		tempBook.setSummary(bookSummary.getText());
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
-			
 			AnchorPane pane = loader.load();
-			BookListController controller = loader.getController();
-			controller.initData(tempBook); 
+			BookListController bookListController = loader.getController();
+			bookListController.initData(tempBook); 
 			content.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
 		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
-		for(int i = 1900; i <= 2019; i++)
+		for(int i = 2019; i >= 1900; i--)
 		{
 			possibleYears.add(i);
 		}
