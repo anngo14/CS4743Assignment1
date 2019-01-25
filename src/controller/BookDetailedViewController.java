@@ -43,7 +43,12 @@ public class BookDetailedViewController implements Initializable{
 		tempBook.setYear(year);
 		tempBook.setSummary(summary);
 		try {
-			AnchorPane pane = FXMLLoader.load(getClass().getResource("/view/BookListView.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
+			
+			AnchorPane pane = loader.load();
+			BookListController controller = loader.getController();
+			controller.initData(tempBook); 
 			content.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

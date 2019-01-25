@@ -32,6 +32,8 @@ public class BookListController implements Initializable{
 	@FXML
 	AnchorPane content;
 	
+	Book tempBook;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Book test = new Book("Title", "ISBN", "SUMMARY", 2019);
@@ -59,6 +61,9 @@ public class BookListController implements Initializable{
 						BookDetailedViewController controller = loader.getController();
 						
 						controller.initData((Book) bookTable.getSelectionModel().getSelectedItem());
+						bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
+						System.out.println("" + bookList.size());
+
 						content.getChildren().setAll(pane);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -66,6 +71,20 @@ public class BookListController implements Initializable{
 				}
 			}
 		});
+	}
+	
+	public void initData(Book editedBook)
+	{
+		tempBook = editedBook;
+		bookList.add(tempBook);
+		System.out.println("initdata" + bookList.size());
+		for(Book b: bookList)
+		{
+			System.out.println(b.getTitle());
+		}
+		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
+		bookTable.setItems(savedBooks);
 	}
 
 }
