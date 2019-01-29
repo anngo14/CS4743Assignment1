@@ -36,10 +36,12 @@ public class BookListController implements Initializable{
 		Book test = new Book("Title", "ISBN", "SUMMARY", 2019);
 		Book test2 = new Book("Test" , "ISBN", "N/A", 1990);
 		Book test3 = new Book("Cat in the Hat", "3940234", "A cat talks to children", 1950);
+		Book test4 = new Book("Eragon", "978-3-16-148410-0", "A Dragon destroys our childhood, an Accelarated Reading Program Tragedy.", 2000);
 		
 		bookList.add(test);
 		bookList.add(test2);
 		bookList.add(test3);
+		bookList.add(test4);
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
