@@ -32,11 +32,14 @@ public class BookListController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//Fake Data
 		Book test = new Book("Title", "ISBN", "SUMMARY", 2019);
 		Book test2 = new Book("Test" , "ISBN", "N/A", 1990);
-
+		Book test3 = new Book("Cat in the Hat", "3940234", "A cat talks to children", 1950);
+		
 		bookList.add(test);
 		bookList.add(test2);
+		bookList.add(test3);
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
@@ -44,6 +47,7 @@ public class BookListController implements Initializable{
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 					handleDoubleClick(event);
+					//Log item is double clicked using Log4j
 				}
 			}
 		});
@@ -52,9 +56,7 @@ public class BookListController implements Initializable{
 	private void handleDoubleClick(MouseEvent event) {
 		try {
 			int index = bookTable.getSelectionModel().getSelectedIndex();
-			System.out.println("Cell clicked = " + title.getCellData(index));
 			Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
-			System.out.println("Book Title: " + selectedBook.getTitle() + " Book ISBN: " + selectedBook.getISBN() + " Book Summary: " + selectedBook.getSummary() + " Book Year Published: " + selectedBook.getYear());
 			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
@@ -72,7 +74,8 @@ public class BookListController implements Initializable{
 		}
 	}
 	
-	public void initData(Book editedBook)
+	//Code to transfer data from other controllers
+/*	public void initData(Book editedBook)
 	{
 		tempBook = editedBook;
 		bookList.add(tempBook);
@@ -84,6 +87,6 @@ public class BookListController implements Initializable{
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
-	}
+	}*/
 
 }

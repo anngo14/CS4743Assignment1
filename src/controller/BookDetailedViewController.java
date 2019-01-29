@@ -31,19 +31,20 @@ public class BookDetailedViewController implements Initializable{
 	Book tempBook;
 	
 	public void saveBook()
-	{
-		System.out.println("Year Published : " + (int) yearPick.getValue());
+	{		
+		//Log save button clicked using Log4j
 		
 		tempBook.setTitle(bookTitle.getText());
 		tempBook.setISBN(bookISBN.getText());
 		tempBook.setYear((int) yearPick.getValue());
 		tempBook.setSummary(bookSummary.getText());
+		
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
 			AnchorPane pane = loader.load();
 			BookListController bookListController = loader.getController();
-			bookListController.initData(tempBook); 
+			//bookListController.initData(tempBook); 
 			content.getChildren().setAll(pane);
 		} catch (IOException e) {
 			e.printStackTrace();
