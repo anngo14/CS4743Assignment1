@@ -55,7 +55,6 @@ public class BookListController implements Initializable{
 	
 	private void handleDoubleClick(MouseEvent event) {
 		try {
-			int index = bookTable.getSelectionModel().getSelectedIndex();
 			Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
 			
 			FXMLLoader loader = new FXMLLoader();
@@ -64,9 +63,8 @@ public class BookListController implements Initializable{
 			AnchorPane pane = loader.load();
 			BookDetailedViewController bookeDetailedViewController = loader.getController();
 			
-			bookeDetailedViewController.initData((Book) bookTable.getSelectionModel().getSelectedItem());
-			bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
-			System.out.println("" + bookList.size());
+			bookeDetailedViewController.initData((Book) selectedBook);
+			//bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
 			
 			content.getChildren().setAll(pane);
 		} catch (IOException e) {
