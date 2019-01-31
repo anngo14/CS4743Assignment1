@@ -33,15 +33,17 @@ public class BookListController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//Fake Data
-		Book test = new Book("Title", "ISBN", "SUMMARY", 2019);
-		Book test2 = new Book("Test" , "ISBN", "N/A", 1990);
+		Book test = new Book("Chemistry", "ISBN", "ISOTOPES", 2019);
+		Book test2 = new Book("Harry Potter: The Series" , "3982-3-424-324", "Cat and mouse game between a boy and his assaulter", 1990);
 		Book test3 = new Book("Cat in the Hat", "3940234", "A cat talks to children", 1950);
 		Book test4 = new Book("Eragon", "978-3-16-148410-0", "A Dragon destroys our childhood, an Accelarated Reading Program Tragedy.", 2000);
+		Book test5 = new Book("Systems Programming", "01-01-10100101", "Clark's notes over inodes", 2018);
 		
 		bookList.add(test);
 		bookList.add(test2);
 		bookList.add(test3);
 		bookList.add(test4);
+		bookList.add(test5);
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
 		bookTable.setItems(savedBooks);
