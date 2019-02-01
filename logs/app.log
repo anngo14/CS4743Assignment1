@@ -1,0 +1,4 @@
+02:35:16.358 DEBUG controller.BookListController$1 : Book double clicked
+02:35:20.065 DEBUG controller.BookDetailedViewController : Book entry saved
+02:35:40.424 DEBUG controller.BookListController$1 : Book double clicked
+02:35:43.152 DEBUG controller.BookDetailedViewController : Book entry saved

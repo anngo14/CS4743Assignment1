@@ -6,6 +6,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import model.Book;
 
 public class BookDetailedViewController implements Initializable, Controller {
+	
+	private static Logger logger = LogManager.getLogger();
 
 	@FXML
 	TextField bookTitle;
@@ -33,7 +38,7 @@ public class BookDetailedViewController implements Initializable, Controller {
 	public void saveBook()
 	{		
 		//Log save button clicked using Log4j
-		
+		logger.debug("Book entry saved");
 //		tempBook.setTitle(bookTitle.getText());
 //		tempBook.setISBN(bookISBN.getText());
 //		tempBook.setYear((int) yearPick.getValue());
@@ -49,6 +54,7 @@ public class BookDetailedViewController implements Initializable, Controller {
 //			//bookListController.initData(tempBook); 
 //			content.getChildren().setAll(pane);
 //		} catch (IOException e) {
+//			logger.error("Unable to save book entry");
 //			e.printStackTrace();
 //		}
 	}
@@ -66,7 +72,6 @@ public class BookDetailedViewController implements Initializable, Controller {
 	
 	public void initData(Book bookToEdit)
 	{
-		tempBook = bookToEdit;
 		bookTitle.setText(bookToEdit.getTitle());
 		bookISBN.setText(bookToEdit.getISBN());
 		bookSummary.setText(bookToEdit.getSummary());
