@@ -5,13 +5,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuController">
+<BorderPane fx:id="border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar prefHeight="25.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Book List">
             <items>
-              <MenuItem fx:id="bookList" mnemonicParsing="false" onAction="#showBookList" text="Show Book List" />
+              <MenuItem fx:id="bookList" mnemonicParsing="false" onAction="#changeView" text="Show Book List" />
             </items>
           </Menu>
           <Menu fx:id="quit" mnemonicParsing="false" onAction="#quitApplication" text="Quit">

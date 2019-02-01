@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Book;
 
-public class BookDetailedViewController implements Initializable{
+public class BookDetailedViewController implements Initializable, Controller {
 
 	@FXML
 	TextField bookTitle;
@@ -34,21 +34,23 @@ public class BookDetailedViewController implements Initializable{
 	{		
 		//Log save button clicked using Log4j
 		
-		tempBook.setTitle(bookTitle.getText());
-		tempBook.setISBN(bookISBN.getText());
-		tempBook.setYear((int) yearPick.getValue());
-		tempBook.setSummary(bookSummary.getText());
+//		tempBook.setTitle(bookTitle.getText());
+//		tempBook.setISBN(bookISBN.getText());
+//		tempBook.setYear((int) yearPick.getValue());
+//		tempBook.setSummary(bookSummary.getText());
 		
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
-			AnchorPane pane = loader.load();
-			BookListController bookListController = loader.getController();
-			//bookListController.initData(tempBook); 
-			content.getChildren().setAll(pane);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
+
+//		try {
+//			FXMLLoader loader = new FXMLLoader();
+//			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
+//			AnchorPane pane = loader.load();
+//			BookListController bookListController = loader.getController();
+//			//bookListController.initData(tempBook); 
+//			content.getChildren().setAll(pane);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

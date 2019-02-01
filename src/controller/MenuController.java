@@ -8,14 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
-import model.ViewSwitcher;
 
-public class MenuController implements Initializable{
+public class MenuController implements Initializable, Controller {
 	
 	@FXML
 	BorderPane border;
 	
-	private ViewSwitcher viewSwitcher;
+	private MainController mainController;
 
 	public void showBookList() throws IOException
 	{

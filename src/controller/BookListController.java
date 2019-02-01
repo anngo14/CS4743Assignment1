@@ -17,7 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class BookListController implements Initializable{
+public class BookListController implements Initializable, Controller {
 
 	private ArrayList<Book> bookList = new ArrayList<Book>();
 	
@@ -58,8 +58,10 @@ public class BookListController implements Initializable{
 	}
 	
 	private void handleDoubleClick(MouseEvent event) {
+		Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
+		
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
 		try {
-			Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
 			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
@@ -68,7 +70,7 @@ public class BookListController implements Initializable{
 			BookDetailedViewController bookeDetailedViewController = loader.getController();
 			
 			bookeDetailedViewController.initData((Book) selectedBook);
-			//bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
+			bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
 			
 			content.getChildren().setAll(pane);
 		} catch (IOException e) {
