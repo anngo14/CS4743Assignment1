@@ -18,6 +18,7 @@ public class MainController {
 	private static MainController instance = null;
 	
 	private BorderPane borderPane;
+	private Book book;
 	
 	@FXML
 	MenuItem bookList;
@@ -59,6 +60,30 @@ public class MainController {
 		}
 	}
 	
+	public void changeView(ViewType viewType, Controller viewController) {
+		String viewName = "";
+		Controller controller = null;
+		switch(viewType) {
+			case BOOK_DETAILED_VIEW:
+				viewName = "/view/BookDetailedView.fxml";
+				controller = viewController;
+				break;
+			case BOOK_LIST_VIEW:
+				viewName = "/view/BookListView.fxml";
+				controller = viewController;
+				break;
+		}
+		try {
+			URL url = this.getClass().getResource(viewName);
+			FXMLLoader loader = new FXMLLoader(url);
+			loader.setController(controller);
+			Parent viewNode = loader.load();
+			borderPane.setCenter(viewNode);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@FXML
 	void changeView(ActionEvent event) {
 		if (event.getSource() == bookList)
@@ -76,5 +101,15 @@ public class MainController {
 	
 	public void setBorderPane(BorderPane borderPane) {
 		this.borderPane = borderPane;
+	}
+	
+	public Book getBook()
+	{
+		return book;
+	}
+	
+	public void setBook(Book newBook)
+	{
+		book = newBook;
 	}
 }

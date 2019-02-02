@@ -40,7 +40,6 @@ public class BookListController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//Fake Data
-		
 		bookList.add(new Book("Chemistry", "ISBN", "ISOTOPES", 2019));
 		bookList.add(new Book("Harry Potter: The Series" , "3982-3-424-324", "Cat and mouse game between a boy and his assaulter", 1990));
 		bookList.add(new Book("Eragon", "978-3-16-148410-0", "A Dragon destroys our childhood, an Accelarated Reading Program Tragedy.", 2000));
@@ -62,43 +61,13 @@ public class BookListController implements Initializable, Controller {
 	}
 	
 	private void handleDoubleClick(MouseEvent event) {
-		// BELOW LINE BY ITSELF SWITCHES VIEW, BUT HAVEN'T FOUND A WAY TO POPULATE DATA
-		// MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
 		
+		Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
 		
-		// MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
-		try {
-			Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
-			
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/view/BookDetailedView.fxml"));
-			
-			AnchorPane pane = loader.load();
-			BookDetailedViewController bookDetailedViewController = loader.getController();
-			
-			bookDetailedViewController.initData((Book) selectedBook);
-			// bookList.remove((Book) bookTable.getSelectionModel().getSelectedItem());
-			
-			content.getChildren().setAll(pane);
-		} catch (IOException e) {
-			logger.error("Unable to load detailed view for selected book");
-			e.printStackTrace();
-		}
+		MainController.getInstance().setBook(selectedBook);
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
 	}
 	
-	//Code to transfer data from other controllers
-/*	public void initData(Book editedBook)
-	{
-		tempBook = editedBook;
-		bookList.add(tempBook);
-		System.out.println("initdata" + bookList.size());
-		for(Book b: bookList)
-		{
-			System.out.println(b.getTitle());
-		}
-		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
-		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
-		bookTable.setItems(savedBooks);
-	}*/
+
 
 }

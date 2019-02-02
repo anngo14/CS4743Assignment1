@@ -37,31 +37,26 @@ public class BookDetailedViewController implements Initializable, Controller {
 	
 	public void saveBook()
 	{		
-		//Log save button clicked using Log4j
-		logger.debug("Book entry saved");
-//		tempBook.setTitle(bookTitle.getText());
-//		tempBook.setISBN(bookISBN.getText());
-//		tempBook.setYear((int) yearPick.getValue());
-//		tempBook.setSummary(bookSummary.getText());
 		
+		/*tempBook.setTitle(bookTitle.getText());
+		tempBook.setISBN(bookISBN.getText());
+		tempBook.setYear((int) yearPick.getValue());
+		tempBook.setSummary(bookSummary.getText());
+		
+		MainController.getInstance().setBook(tempBook);*/
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
-
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(getClass().getResource("/view/BookListView.fxml"));
-//			AnchorPane pane = loader.load();
-//			BookListController bookListController = loader.getController();
-//			//bookListController.initData(tempBook); 
-//			content.getChildren().setAll(pane);
-//		} catch (IOException e) {
-//			logger.error("Unable to save book entry");
-//			e.printStackTrace();
-//		}
+		logger.debug("Book entry saved");
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
+		tempBook = MainController.getInstance().getBook();
+		bookTitle.setText(tempBook.getTitle());
+		bookISBN.setText(tempBook.getISBN());
+		bookSummary.setText(tempBook.getSummary());
+		yearPick.setValue(tempBook.getYear());
+		
 		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
 		for(int i = 2019; i >= 1900; i--)
 		{
@@ -70,11 +65,4 @@ public class BookDetailedViewController implements Initializable, Controller {
 		yearPick.getItems().addAll(possibleYears);
 	}
 	
-	public void initData(Book bookToEdit)
-	{
-		bookTitle.setText(bookToEdit.getTitle());
-		bookISBN.setText(bookToEdit.getISBN());
-		bookSummary.setText(bookToEdit.getSummary());
-		yearPick.setValue(bookToEdit.getYear());
-	}
 }
