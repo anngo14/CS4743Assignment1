@@ -24,3 +24,12 @@
 13:42:55.929 DEBUG controller.BookDetailedViewController : Book entry saved
 13:42:58.020 DEBUG controller.BookListController$1 : Book double clicked
 13:42:59.914 DEBUG controller.BookDetailedViewController : Book entry saved
+13:48:57.242 DEBUG controller.BookListController$1 : Book double clicked
+13:49:27.467 DEBUG controller.BookDetailedViewController : Book entry saved
+13:49:36.583 DEBUG controller.BookListController$1 : Book double clicked
+13:49:38.653 DEBUG controller.BookDetailedViewController : Book entry saved
+13:49:42.978 DEBUG controller.BookListController$1 : Book double clicked
+13:49:55.616 DEBUG controller.BookDetailedViewController : Book entry saved
+13:49:59.190 DEBUG controller.BookListController$1 : Book double clicked
+15:21:51.267 DEBUG controller.BookListController$1 : Book double clicked
+15:21:55.216 DEBUG controller.BookDetailedViewController : Book entry saved
