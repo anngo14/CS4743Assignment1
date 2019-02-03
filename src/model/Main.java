@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+	
+	//CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
 
 	public static void main(String[] args) {
 		launch(args);

@@ -38,12 +38,12 @@ public class BookDetailedViewController implements Initializable, Controller {
 	public void saveBook()
 	{		
 		
-		/*tempBook.setTitle(bookTitle.getText());
+		tempBook.setTitle(bookTitle.getText());
 		tempBook.setISBN(bookISBN.getText());
 		tempBook.setYear((int) yearPick.getValue());
 		tempBook.setSummary(bookSummary.getText());
 		
-		MainController.getInstance().setBook(tempBook);*/
+		MainController.getInstance().setBook(tempBook);
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
 		logger.debug("Book entry saved");
 	}
