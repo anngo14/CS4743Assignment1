@@ -44,8 +44,9 @@ public class BookDetailedViewController implements Initializable, Controller {
 		tempBook.setSummary(bookSummary.getText());
 		
 		MainController.getInstance().setBook(tempBook);
+
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
-		logger.debug("Book entry saved");
+		logger.debug("Book entry saved: " + tempBook.getTitle());
 	}
 
 	@Override
