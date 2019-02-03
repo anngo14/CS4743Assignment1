@@ -1,35 +1,15 @@
-02:35:16.358 DEBUG controller.BookListController$1 : Book double clicked
-02:35:20.065 DEBUG controller.BookDetailedViewController : Book entry saved
-02:35:40.424 DEBUG controller.BookListController$1 : Book double clicked
-02:35:43.152 DEBUG controller.BookDetailedViewController : Book entry saved
-13:03:31.634 DEBUG controller.BookListController$1 : Book double clicked
-13:07:05.203 DEBUG controller.BookListController$1 : Book double clicked
-13:13:27.396 DEBUG controller.BookListController$1 : Book double clicked
-13:14:28.398 DEBUG controller.BookListController$1 : Book double clicked
-13:15:01.319 DEBUG controller.BookListController$1 : Book double clicked
-13:26:52.390 DEBUG controller.BookListController$1 : Book double clicked
-13:37:29.222 DEBUG controller.BookListController$1 : Book double clicked
-13:37:31.239 DEBUG controller.BookDetailedViewController : Book entry saved
-13:37:39.272 DEBUG controller.BookListController$1 : Book double clicked
-13:37:41.114 DEBUG controller.BookDetailedViewController : Book entry saved
-13:39:42.654 DEBUG controller.BookListController$1 : Book double clicked
-13:39:49.250 DEBUG controller.BookDetailedViewController : Book entry saved
-13:39:54.311 DEBUG controller.BookListController$1 : Book double clicked
-13:39:58.699 DEBUG controller.BookDetailedViewController : Book entry saved
-13:40:01.277 DEBUG controller.BookListController$1 : Book double clicked
-13:40:03.194 DEBUG controller.BookDetailedViewController : Book entry saved
-13:42:48.173 DEBUG controller.BookListController$1 : Book double clicked
-13:42:50.320 DEBUG controller.BookDetailedViewController : Book entry saved
-13:42:52.260 DEBUG controller.BookListController$1 : Book double clicked
-13:42:55.929 DEBUG controller.BookDetailedViewController : Book entry saved
-13:42:58.020 DEBUG controller.BookListController$1 : Book double clicked
-13:42:59.914 DEBUG controller.BookDetailedViewController : Book entry saved
-13:48:57.242 DEBUG controller.BookListController$1 : Book double clicked
-13:49:27.467 DEBUG controller.BookDetailedViewController : Book entry saved
-13:49:36.583 DEBUG controller.BookListController$1 : Book double clicked
-13:49:38.653 DEBUG controller.BookDetailedViewController : Book entry saved
-13:49:42.978 DEBUG controller.BookListController$1 : Book double clicked
-13:49:55.616 DEBUG controller.BookDetailedViewController : Book entry saved
-13:49:59.190 DEBUG controller.BookListController$1 : Book double clicked
-15:21:51.267 DEBUG controller.BookListController$1 : Book double clicked
-15:21:55.216 DEBUG controller.BookDetailedViewController : Book entry saved
+01:16:08.871 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+01:16:12.011 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
+01:16:13.359 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+01:16:18.117 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+01:16:19.553 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+01:19:31.743 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+01:19:33.475 DEBUG controller.BookDetailedViewController : Book entry saved: Cat in the Hat
+01:20:08.468 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+01:20:10.346 DEBUG controller.BookDetailedViewController : Book entry saved: Harry Potter: The Series
+01:20:11.729 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+01:20:13.279 DEBUG controller.BookDetailedViewController : Book entry saved: Cat in the Hat
+01:20:14.377 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+01:20:15.642 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
+01:20:53.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+01:20:54.378 DEBUG controller.BookDetailedViewController : Book entry saved: Harry Potter: The Series

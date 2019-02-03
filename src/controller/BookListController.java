@@ -52,18 +52,15 @@ public class BookListController implements Initializable, Controller {
 		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					handleDoubleClick(event);
-					//Log item is double clicked using Log4j
-					logger.debug("Book double clicked");
+					Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
+					handleDoubleClick(event, selectedBook);
+					logger.debug("Book double clicked: " + selectedBook.getTitle());
 				}
 			}
 		});
 	}
 	
-	private void handleDoubleClick(MouseEvent event) {
-		
-		Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
-		
+	private void handleDoubleClick(MouseEvent event, Book selectedBook) {
 		MainController.getInstance().setBook(selectedBook);
 		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
 	}

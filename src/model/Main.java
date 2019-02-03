@@ -28,7 +28,7 @@ public class Main extends Application{
 			
 			Parent root = loader.load();
 			mainController.setBorderPane((BorderPane) root);
-			// Parent root = FXMLLoader.load(getClass().getResource("/view/MenuBar.fxml"));
+
 			primaryStage.setScene(new Scene(root, 1000, 800));
 			primaryStage.setTitle("Book List");
 			primaryStage.getIcons().add(new Image("view/download.png"));
