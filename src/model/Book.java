@@ -6,6 +6,7 @@ public class Book {
 	private String bookISBN;
 	private String bookSummary;
 	private int bookYearPublished;
+	private int id;
 	
 	public Book()
 	{
@@ -13,6 +14,7 @@ public class Book {
 		bookISBN = "";
 		bookSummary = "";
 		bookYearPublished = 0;
+		id = 0;
 	}
 	public Book(String title, String isbn, String summary, int year)
 	{
@@ -37,6 +39,10 @@ public class Book {
 	{
 		return bookYearPublished;
 	}
+	public int getId()
+	{
+		return id;
+	}
 	public void setTitle(String title)
 	{
 		bookTitle = title;
@@ -52,5 +58,9 @@ public class Book {
 	public void setYear(int year)
 	{
 		bookYearPublished = year;
+	}
+	public void setId(int bookId)
+	{
+		id = bookId;
 	}
 }

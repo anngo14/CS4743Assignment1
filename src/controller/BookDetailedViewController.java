@@ -51,10 +51,13 @@ public class BookDetailedViewController implements Initializable, Controller {
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		tempBook = MainController.getInstance().getBook();
-		bookTitle.setText(tempBook.getTitle());
-		bookISBN.setText(tempBook.getISBN());
-		bookSummary.setText(tempBook.getSummary());
-		yearPick.setValue(tempBook.getYear());
+		if(tempBook != null)
+		{
+			bookTitle.setText(tempBook.getTitle());
+			bookISBN.setText(tempBook.getISBN());
+			bookSummary.setText(tempBook.getSummary());
+			yearPick.setValue(tempBook.getYear());
+		}
 		
 		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
 		for(int i = 2019; i >= 1900; i--)

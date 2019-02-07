@@ -29,6 +29,9 @@ public class MainController {
 	@FXML
 	MenuItem quit;
 	
+	@FXML
+	MenuItem addBook;
+	
 	private MainController() {
 		listOfBooks.add(new Book("Chemistry", "ISBN", "ISOTOPES", 2019));
 		listOfBooks.add(new Book("Harry Potter: The Series" , "3982-3-424-324", "Cat and mouse game between a boy and his assaulter", 1990));
@@ -95,12 +98,15 @@ public class MainController {
 	void changeView(ActionEvent event) {
 		if (event.getSource() == bookList)
 			changeView(ViewType.BOOK_LIST_VIEW);
+		else if (event.getSource() == addBook)
+			changeView(ViewType.BOOK_DETAILED_VIEW);
 	}
 	
 	@FXML
 	void quitApplication() {
 		System.exit(0);
 	}
+	
 	
 	public BorderPane getBorderPane() {
 		return borderPane;

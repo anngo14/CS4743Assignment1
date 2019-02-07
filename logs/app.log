@@ -110,3 +110,14 @@
 17:19:41.550 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
 17:19:43.146 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
 17:19:45.045 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+17:24:14.938 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+17:24:16.668 DEBUG controller.BookDetailedViewController : Book entry saved: Eragon
+17:37:28.595 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+17:37:34.168 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+17:37:35.320 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+17:37:37.133 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
+17:37:39.896 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+17:49:47.314 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+17:50:02.009 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
+17:50:05.049 DEBUG controller.BookListController$1 : Book double clicked: Chemistry jhjh
+17:50:13.846 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
