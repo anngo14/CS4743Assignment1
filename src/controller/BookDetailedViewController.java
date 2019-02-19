@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
@@ -45,7 +46,10 @@ public class BookDetailedViewController implements Initializable, Controller {
 				&& isSummaryValid(bookSummary.getText())
 				&& isYearPublishedValid((int) yearPick.getValue())
 				&& isIsbnValid(bookISBN.getText())) {
-			MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
+			
+			// TODO: Insert new book or update existing book in database
+			
+			MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
 			logger.debug("Book entry saved: " + tempBook.getTitle());	
 		}
 	}
@@ -54,11 +58,12 @@ public class BookDetailedViewController implements Initializable, Controller {
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		tempBook = MainController.getInstance().getBook();
-		bookTitle.setText(tempBook.getTitle());
-		bookISBN.setText(tempBook.getISBN());
-		bookSummary.setText(tempBook.getSummary());
-		yearPick.setValue(tempBook.getYear());
-		
+		if (tempBook != null) {
+			bookTitle.setText(tempBook.getTitle());
+			bookISBN.setText(tempBook.getISBN());
+			bookSummary.setText(tempBook.getSummary());
+			yearPick.setValue(tempBook.getYear());
+		}
 		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
 		for(int i = 2019; i >= 1900; i--)
 		{

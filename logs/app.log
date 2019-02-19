@@ -13,3 +13,23 @@
 01:20:15.642 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
 01:20:53.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 01:20:54.378 DEBUG controller.BookDetailedViewController : Book entry saved: Harry Potter: The Series
+12:04:07.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+12:07:29.821 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+12:07:39.441 DEBUG controller.BookDetailedViewController : Book entry saved: Cat in the Hat
+12:07:40.836 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+12:08:33.363 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+12:09:41.668 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+12:11:42.459 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:03:02.466 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+15:03:21.716 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+15:03:24.404 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+15:03:29.142 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+15:03:32.357 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+15:03:36.256 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:03:41.323 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+15:06:37.376 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:08:28.303 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+15:08:36.085 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+15:17:07.822 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+15:17:11.676 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+15:18:26.405 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
