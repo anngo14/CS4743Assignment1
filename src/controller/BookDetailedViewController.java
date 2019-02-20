@@ -120,6 +120,7 @@ public class BookDetailedViewController implements Initializable, Controller {
 		alert.setHeaderText("Invalid Book Property");
 		alert.setContentText(message);
 		alert.showAndWait();
+		
 	}
 	
 }
