@@ -94,6 +94,28 @@
 01:20:15.642 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
 01:20:53.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 01:20:54.378 DEBUG controller.BookDetailedViewController : Book entry saved: Harry Potter: The Series
+<<<<<<< HEAD
+12:04:07.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+12:07:29.821 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+12:07:39.441 DEBUG controller.BookDetailedViewController : Book entry saved: Cat in the Hat
+12:07:40.836 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+12:08:33.363 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+12:09:41.668 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+12:11:42.459 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:03:02.466 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+15:03:21.716 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+15:03:24.404 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+15:03:29.142 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+15:03:32.357 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+15:03:36.256 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:03:41.323 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+15:06:37.376 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+15:08:28.303 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+15:08:36.085 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+15:17:07.822 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+15:17:11.676 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+15:18:26.405 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+=======
 >>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
 17:16:24.066 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
 17:16:29.067 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
@@ -121,6 +143,7 @@
 17:50:02.009 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
 17:50:05.049 DEBUG controller.BookListController$1 : Book double clicked: Chemistry jhjh
 17:50:13.846 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
+<<<<<<< HEAD
 14:44:53.492 DEBUG controller.BookDetailedViewController : Book entry saved: n
 14:44:56.008 DEBUG controller.BookListController$1 : Book double clicked: n
 14:45:01.636 DEBUG controller.BookDetailedViewController : Book entry saved: n
@@ -211,3 +234,22 @@
 20:33:11.561 INFO  model.Main : creating connection...
 20:33:18.429 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 20:33:20.800 INFO  model.Main : closing connection...
+=======
+>>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
+>>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
+20:43:17.590 INFO  model.Main : creating connection...
+20:43:24.278 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+20:56:01.116 INFO  model.Main : closing connection...
+21:30:21.003 INFO  model.Main : creating connection...
+21:30:25.294 INFO  model.Main : closing connection...
+21:40:39.395 INFO  model.Main : creating connection...
+21:40:45.149 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+21:40:50.919 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+21:40:50.999 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+21:40:59.828 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+21:41:02.137 DEBUG controller.BookDetailedViewController : Book entry saved: Test Book
+21:41:02.239 DEBUG controller.BookDetailedViewController : Book entry saved: Test Book
+21:41:04.611 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+21:41:06.407 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+21:41:06.517 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
+21:41:36.603 INFO  model.Main : closing connection...

@@ -63,6 +63,22 @@ public class BookTableGateway {
 	
 	public void updateBook(Book newBook)
 	{
+		PreparedStatement statement = null;
+		int success = 0;
+		try {
+			String sql = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ? WHERE id = ?";
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, newBook.getTitle());
+			statement.setString(2,  newBook.getISBN());
+			statement.setString(3,  newBook.getSummary());
+			statement.setInt(4, newBook.getYear());
+			statement.setInt(5,  newBook.getId());
+			
+			success = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	public Connection getConnection()

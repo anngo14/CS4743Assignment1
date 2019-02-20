@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
@@ -60,7 +61,7 @@ public class BookListController implements Initializable, Controller {
 	
 	private void handleDoubleClick(MouseEvent event, Book selectedBook) {
 		MainController.getInstance().setBook(selectedBook);
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW);
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.empty());
 	}
 	
 
