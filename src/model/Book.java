@@ -23,6 +23,14 @@ public class Book {
 		bookSummary = summary;
 		bookYearPublished = year;
 	}
+	public Book(String title, String isbn, String summary, int year, int id)
+	{
+		bookTitle = title;
+		bookISBN = isbn;
+		bookSummary = summary;
+		bookYearPublished = year;
+		this.id = id;
+	}
 	public String getTitle()
 	{
 		return bookTitle;
@@ -62,5 +70,14 @@ public class Book {
 	public void setId(int bookId)
 	{
 		id = bookId;
+	}
+	public String toString()
+	{
+		String output = "Book ID: " + id + "\n";
+		output += "\tTitle: " + bookTitle + "\n";
+		output += "\tIsbn: " + bookISBN + "\n";
+		output += "\tSummary: " + bookSummary + "\n";
+		output += "\tYear Published: " + bookYearPublished;
+		return output;
 	}
 }

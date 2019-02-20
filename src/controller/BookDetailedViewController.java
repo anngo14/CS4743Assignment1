@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import gateway.BookTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,7 +43,7 @@ public class BookDetailedViewController implements Initializable, Controller {
 		tempBook.setYear((int) yearPick.getValue());
 		tempBook.setSummary(bookSummary.getText());
 		
-		MainController.getInstance().setBook(tempBook);
+		BookTableGateway.getInstance().updateBook(tempBook);
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW);
 		logger.debug("Book entry saved: " + tempBook.getTitle());
 	}

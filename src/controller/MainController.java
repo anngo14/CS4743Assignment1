@@ -2,16 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import model.Book;
 
 public class MainController {
@@ -20,7 +17,6 @@ public class MainController {
 	
 	private BorderPane borderPane;
 	private Book book = null;
-	private ArrayList<Book> listOfBooks = new ArrayList<Book>();
 	
 	
 	@FXML
@@ -33,11 +29,7 @@ public class MainController {
 	MenuItem addBook;
 	
 	private MainController() {
-		listOfBooks.add(new Book("Chemistry", "ISBN", "ISOTOPES", 2019));
-		listOfBooks.add(new Book("Harry Potter: The Series" , "3982-3-424-324", "Cat and mouse game between a boy and his assaulter", 1990));
-		listOfBooks.add(new Book("Eragon", "978-3-16-148410-0", "A Dragon destroys our childhood, an Accelarated Reading Program Tragedy.", 2000));
-		listOfBooks.add(new Book("Cat in the Hat", "3940234", "A cat talks to children", 1950));
-		listOfBooks.add(new Book("Systems Programming", "01-01-10100101", "Clark's notes over inodes", 2018));
+		
 	}
 	
 	public static MainController getInstance() {
@@ -124,16 +116,6 @@ public class MainController {
 	public void setBook(Book newBook)
 	{
 		book = newBook;
-	}
-	
-	public ArrayList<Book> getBookList()
-	{
-		return listOfBooks;
-	}
-	
-	public void setBookList(ArrayList<Book> list)
-	{
-		listOfBooks = list;
 	}
 	
 }

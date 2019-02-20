@@ -20,6 +20,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.Logger;
+
+import gateway.BookTableGateway;
+
 import org.apache.logging.log4j.LogManager;
 
 public class BookListController implements Initializable, Controller {
@@ -39,14 +42,7 @@ public class BookListController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		bookList = MainController.getInstance().getBookList();
-		tempBook = MainController.getInstance().getBook();
-		if(tempBook != null)
-		{
-			bookList.remove(tempBook);
-			bookList.add(tempBook);
-			MainController.getInstance().setBookList(bookList);
-		}
+		bookList = BookTableGateway.getInstance().getBookList();
 		
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
