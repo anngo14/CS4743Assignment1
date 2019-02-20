@@ -81,6 +81,26 @@ public class BookTableGateway {
 		}
 		
 	}
+	public void insertBook(Book newBook)
+	{
+		PreparedStatement statement = null;
+		int success = 0;
+		try {
+			String sql = "INSERT INTO Books (title, isbn, summary, year_published) VALUES (?,?,?,?)";
+			statement = connection.prepareStatement(sql);
+			
+			statement.setString(1, newBook.getTitle());
+			statement.setString(2, newBook.getISBN());
+			statement.setString(3, newBook.getSummary());
+			statement.setInt(4, newBook.getYear());
+			
+			success = statement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	public Connection getConnection()
 	{
 		return connection;

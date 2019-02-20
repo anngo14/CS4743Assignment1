@@ -14,7 +14,7 @@ public class Book {
 		bookISBN = "";
 		bookSummary = "";
 		bookYearPublished = 0;
-		id = 0;
+		id = -1;
 	}
 	public Book(String title, String isbn, String summary, int year)
 	{

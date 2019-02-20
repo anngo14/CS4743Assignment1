@@ -42,15 +42,7 @@ public class BookDetailedViewController implements Initializable, Controller {
 	Book tempBook;
 	
 	public void saveBook()
-	{		
-
-		tempBook.setTitle(bookTitle.getText());
-		tempBook.setISBN(bookISBN.getText());
-		tempBook.setYear((int) yearPick.getValue());
-		tempBook.setSummary(bookSummary.getText());
-		
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
-		logger.debug("Book entry saved: " + tempBook.getTitle());
+	{				
 
 		if (isTitleValid(bookTitle.getText())
 				&& isSummaryValid(bookSummary.getText())
@@ -58,7 +50,19 @@ public class BookDetailedViewController implements Initializable, Controller {
 				&& isIsbnValid(bookISBN.getText())) {
 			
 			// TODO: Insert new book or update existing book in database
-			BookTableGateway.getInstance().updateBook(tempBook);
+			tempBook.setTitle(bookTitle.getText());
+			tempBook.setISBN(bookISBN.getText());
+			tempBook.setYear((int) yearPick.getValue());
+			tempBook.setSummary(bookSummary.getText());
+			
+			if(tempBook.getId() == -1)
+			{
+				BookTableGateway.getInstance().insertBook(tempBook);
+			}
+			else
+			{
+				BookTableGateway.getInstance().updateBook(tempBook);
+			}
 			MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
 			logger.debug("Book entry saved: " + tempBook.getTitle());	
 		}
@@ -68,12 +72,11 @@ public class BookDetailedViewController implements Initializable, Controller {
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		tempBook = MainController.getInstance().getBook();
-		if (tempBook != null) {
-			bookTitle.setText(tempBook.getTitle());
-			bookISBN.setText(tempBook.getISBN());
-			bookSummary.setText(tempBook.getSummary());
-			yearPick.setValue(tempBook.getYear());
-		}
+		bookTitle.setText(tempBook.getTitle());
+		bookISBN.setText(tempBook.getISBN());
+		bookSummary.setText(tempBook.getSummary());
+		yearPick.setValue(tempBook.getYear());
+		
 		ArrayList<Integer> possibleYears = new ArrayList<Integer>();
 		for(int i = 2019; i >= 1900; i--)
 		{
