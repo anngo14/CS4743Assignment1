@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Book;
@@ -25,86 +24,83 @@ public class BookTableGateway {
 		{
 			instance = new BookTableGateway();
 		}
-		
 		return instance;
 	}
 	
-	public ArrayList<Book> getBookList()
+	public ArrayList<Book> getBooks()
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
-		PreparedStatement statement = null;
-	
+		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "SELECT *FROM Books WHERE id >= ?";
-			statement = connection.prepareStatement(sql);
+			String query = "SELECT * FROM Books WHERE id >= ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, 0);
 			
-			statement.setInt(1, 0);
-			
-			ResultSet rs = statement.executeQuery();
-			while(rs.next())
-			{
-				int bookId = rs.getInt("id");
-				String bookTitle = rs.getString("title");
-				String bookSum = rs.getString("summary");
-				int bookYear = rs.getInt("year_published");
-				String bookIsbn = rs.getString("isbn");
-
-				Book b = new Book(bookTitle, bookIsbn, bookSum, bookYear, bookId);
-
-				books.add(b);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				books.add(new Book(resultSet.getString("title")
+						, resultSet.getString("isbn")
+						, resultSet.getString("summary")
+						, resultSet.getInt("year_published")
+						, resultSet.getInt("id")));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return books;
 	}
 	
-	public void updateBook(Book newBook)
+	public void updateBook(Book book) throws SQLException
 	{
 		PreparedStatement statement = null;
-		int success = 0;
 		try {
-			String sql = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ? WHERE id = ?";
-			statement = connection.prepareStatement(sql);
-			statement.setString(1, newBook.getTitle());
-			statement.setString(2,  newBook.getISBN());
-			statement.setString(3,  newBook.getSummary());
-			statement.setInt(4, newBook.getYear());
-			statement.setInt(5,  newBook.getId());
-			
-			success = statement.executeUpdate();
+			String query = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ? WHERE id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, book.getTitle());
+			statement.setString(2, book.getISBN());
+			statement.setString(3, book.getSummary());
+			statement.setInt(4, book.getYearPublished());
+			statement.setInt(5, book.getId());
+			statement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
-		
 	}
-	public void insertBook(Book newBook)
+	
+	public void insertBook(Book book)
 	{
 		PreparedStatement statement = null;
-		int success = 0;
 		try {
-			String sql = "INSERT INTO Books (title, isbn, summary, year_published) VALUES (?,?,?,?)";
-			statement = connection.prepareStatement(sql);
-			
-			statement.setString(1, newBook.getTitle());
-			statement.setString(2, newBook.getISBN());
-			statement.setString(3, newBook.getSummary());
-			statement.setInt(4, newBook.getYear());
-			
-			success = statement.executeUpdate();
+			String query = "INSERT INTO Books (title, isbn, summary, year_published) VALUES (?,?,?,?)";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, book.getTitle());
+			statement.setString(2, book.getISBN());
+			statement.setString(3, book.getSummary());
+			statement.setInt(4, book.getYearPublished());
+			statement.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+	
+	public void deleteBook(Book book) {
+		PreparedStatement statement = null;
+		try {
+			String query = "DELETE FROM Books WHERE id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, book.getId());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Connection getConnection()
 	{
 		return connection;
 	}
+	
 	public void setConnection(Connection connection)
 	{
 		this.connection = connection;

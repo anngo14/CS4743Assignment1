@@ -1,20 +1,18 @@
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
-
 import model.Book;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,46 +22,57 @@ import org.apache.logging.log4j.Logger;
 
 import gateway.BookTableGateway;
 
-import org.apache.logging.log4j.LogManager;
-
 public class BookListController implements Initializable, Controller {
 	
 	private static Logger logger = LogManager.getLogger();
 	private ArrayList<Book> bookList;
-	private Book tempBook;
+	private Book selectedBook;
 	
 	@FXML
 	TableView<Book> bookTable;
 	@FXML 
-	TableColumn title;
+	TableColumn<?, ?> title;
 	@FXML
 	AnchorPane content;
+	@FXML
+	Button deleteButton;
 	
+	public BookListController(ArrayList<Book> bookList) {
+		this.bookList = bookList;
+		this.selectedBook = null;
+	}
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		bookList = BookTableGateway.getInstance().getBookList();
-		
+	public void initialize(URL location, ResourceBundle resources) 
+	{			
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
-		ObservableList<Book> savedBooks = FXCollections.observableArrayList(bookList);
-		bookTable.setItems(savedBooks);
+		bookTable.setItems(FXCollections.observableArrayList(bookList));
 		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					Book selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
-					handleDoubleClick(event, selectedBook);
-					logger.debug("Book double clicked: " + selectedBook.getTitle());
+					Book book = (Book) bookTable.getSelectionModel().getSelectedItem();
+					handleDoubleClick(book);
+					logger.debug("Book double clicked: " + book.getTitle());
+				} else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+					selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
 				}
 			}
 		});
 	}
 	
-	private void handleDoubleClick(MouseEvent event, Book selectedBook) {
-		MainController.getInstance().setBook(selectedBook);
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.empty());
+	private void handleDoubleClick(Book selectedBook) 
+	{
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook));
 	}
 	
-
+	@FXML
+	private void deleteSelectedBook(ActionEvent event) 
+	{
+		if (selectedBook == null)
+			return;
+		BookTableGateway.getInstance().deleteBook(selectedBook);
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
+		logger.debug("Book record deleted: " + selectedBook.getTitle());
+	}
 
 }

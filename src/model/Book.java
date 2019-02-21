@@ -1,83 +1,105 @@
 package model;
 
+import java.util.Calendar;
+
 public class Book {
 
-	private String bookTitle;
-	private String bookISBN;
-	private String bookSummary;
-	private int bookYearPublished;
+	private String title;
+	private String isbn;
+	private String summary;
+	private int yearPublished;
 	private int id;
 	
-	public Book()
+	private final String DEFAULT_TITLE = "";
+	private final String DEFAULT_ISBN = "";
+	private final String DEFAULT_SUMMARY = "";
+	private final int DEFAULT_YEAR_PUBLISHED = Calendar.getInstance().get(Calendar.YEAR);
+	private final int DEFAULT_ID = -1;
+	
+	public Book() 
 	{
-		bookTitle = "";
-		bookISBN = "";
-		bookSummary = "";
-		bookYearPublished = 0;
-		id = -1;
+		this.title = DEFAULT_TITLE;
+		this.isbn = DEFAULT_ISBN;
+		this.summary = DEFAULT_SUMMARY;
+		this.yearPublished = DEFAULT_YEAR_PUBLISHED;
+		this.id = DEFAULT_ID;
 	}
-	public Book(String title, String isbn, String summary, int year)
+	
+	public Book(String title, String isbn, String summary, int yearPublished) 
 	{
-		bookTitle = title;
-		bookISBN = isbn;
-		bookSummary = summary;
-		bookYearPublished = year;
+		this.title = title;
+		this.isbn = isbn;
+		this.summary = summary;
+		this.yearPublished = yearPublished;
 	}
-	public Book(String title, String isbn, String summary, int year, int id)
+	
+	public Book(String title, String isbn, String summary, int yearPublished, int id) 
 	{
-		bookTitle = title;
-		bookISBN = isbn;
-		bookSummary = summary;
-		bookYearPublished = year;
+		this.title = title;
+		this.isbn = isbn;
+		this.summary = summary;
+		this.yearPublished = yearPublished;
 		this.id = id;
 	}
-	public String getTitle()
+	
+	public String getTitle() 
 	{
-		return bookTitle;
+		return title;
 	}
-	public String getISBN()
+	
+	public String getISBN() 
 	{
-		return bookISBN;
+		return isbn;
 	}
-	public String getSummary()
+	
+	public String getSummary() 
 	{
-		return bookSummary;
+		return summary;
 	}
-	public int getYear()
+	
+	public int getYearPublished() 
 	{
-		return bookYearPublished;
+		return yearPublished;
 	}
-	public int getId()
+	
+	public int getId() 
 	{
 		return id;
 	}
-	public void setTitle(String title)
+	
+	public void setTitle(String title) 
 	{
-		bookTitle = title;
+		this.title = title;
 	}
-	public void setISBN(String isbn)
+	
+	public void setISBN(String isbn) 
 	{
-		bookISBN = isbn;
+		this.isbn = isbn;
 	}
-	public void setSummary(String summary)
+	
+	public void setSummary(String summary) 
 	{
-		bookSummary = summary;
+		this.summary = summary;
 	}
-	public void setYear(int year)
+	
+	public void setYear(int yearPublished) 
 	{
-		bookYearPublished = year;
+		this.yearPublished = yearPublished;
 	}
-	public void setId(int bookId)
+	
+	public void setId(int id) 
 	{
-		id = bookId;
+		this.id = id;
 	}
-	public String toString()
+	
+	public String toString() 
 	{
-		String output = "Book ID: " + id + "\n";
-		output += "\tTitle: " + bookTitle + "\n";
-		output += "\tIsbn: " + bookISBN + "\n";
-		output += "\tSummary: " + bookSummary + "\n";
-		output += "\tYear Published: " + bookYearPublished;
-		return output;
+		StringBuilder bookInfo = new StringBuilder();
+		bookInfo.append("ID: " + id + "\n");
+		bookInfo.append("\tTitle: " + title + "\n");
+		bookInfo.append("\tISBN: " + isbn + "\n");
+		bookInfo.append("\tSummary: " + summary + "\n");
+		bookInfo.append("\tYear Published: " + yearPublished);
+		return bookInfo.toString();
 	}
 }
