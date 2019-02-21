@@ -3,12 +3,8 @@ package model;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 import java.net.URL;
 import java.sql.Connection;
-import java.util.ArrayList;
-
 import controller.MainController;
 import gateway.BookTableGateway;
 import javafx.application.Application;
@@ -21,19 +17,19 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	//CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
+	// CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
 	
 	private static final Logger logger = LogManager.getLogger();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		launch(args);
 	}
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
+	public void start(Stage primaryStage) throws Exception 
+	{
 		try {
-			ArrayList<Book> books = BookTableGateway.getInstance().getBookList();
 			URL url = this.getClass().getResource("/view/MenuBar.fxml");
 			FXMLLoader loader = new FXMLLoader(url);
 			
@@ -49,7 +45,7 @@ public class Main extends Application{
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 	
 	@Override

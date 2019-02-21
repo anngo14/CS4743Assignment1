@@ -6,10 +6,11 @@
 
 <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="bookTable" prefHeight="800.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="bookTable" prefHeight="500.0" prefWidth="1000.0" AnchorPane.bottomAnchor="346.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
           <TableColumn fx:id="title" prefWidth="999.0" style="-fx-alignment: CENTER-LEFT;" text="Book Title" />
         </columns>
       </TableView>
+      <Button fx:id="deleteButton" layoutX="423.0" layoutY="601.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete Selected Book" />
    </children>
 </AnchorPane>
