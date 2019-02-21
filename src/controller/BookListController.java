@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,6 +37,8 @@ public class BookListController implements Initializable, Controller {
 	AnchorPane content;
 	@FXML
 	Button deleteButton;
+	@FXML
+	TextField userSelectedBook;
 	
 	public BookListController(ArrayList<Book> bookList) {
 		this.bookList = bookList;
@@ -55,6 +58,7 @@ public class BookListController implements Initializable, Controller {
 					logger.debug("Book double clicked: " + book.getTitle());
 				} else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 					selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
+					userSelectedBook.setText(selectedBook.getTitle());
 				}
 			}
 		});

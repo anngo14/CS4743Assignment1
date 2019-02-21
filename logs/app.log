@@ -348,3 +348,34 @@
 03:29:52.529 INFO  model.Main : closing connection...
 03:29:59.451 INFO  model.Main : creating connection...
 03:30:01.971 INFO  model.Main : closing connection...
+14:45:01.496 INFO  model.Main : creating connection...
+14:45:11.159 DEBUG controller.BookListController$1 : Book double clicked: ***OPEN THIS BOOK***
+14:45:15.032 DEBUG controller.BookDetailController : Book entry saved: ***OPEN THIS BOOK***
+14:46:01.045 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+14:46:03.232 DEBUG controller.BookDetailController : Book entry saved: Test Book
+14:46:06.755 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+14:46:24.746 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+14:46:26.880 DEBUG controller.BookDetailController : Book entry saved: Cat in the Hat
+14:46:29.193 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+14:46:31.329 DEBUG controller.BookDetailController : Book entry saved: Test Book
+14:46:33.211 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
+14:46:35.239 DEBUG controller.BookDetailController : Book entry saved: Chemistry
+14:46:37.798 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+14:46:46.424 DEBUG controller.BookDetailController : Book entry saved: Harry Potter: The Series
+14:46:48.695 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
+14:50:14.337 DEBUG controller.BookDetailController : Book entry saved: Systems Programming
+14:50:16.999 DEBUG controller.BookListController$1 : Book double clicked: Cornhub Volume 1
+14:50:20.271 DEBUG controller.BookDetailController : Book entry saved: Cornhub Volume 1
+14:50:23.443 DEBUG controller.BookListController : Book record deleted: Cornhub Volume 1
+14:50:32.570 DEBUG controller.BookListController$1 : Book double clicked: Eragon
+14:50:42.190 DEBUG controller.BookDetailController : Book entry saved: Eragon
+14:50:43.942 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
+14:50:50.815 DEBUG controller.BookDetailController : Book entry saved: Cat in the Hat
+14:50:52.208 DEBUG controller.BookListController$1 : Book double clicked: ***OPEN THIS BOOK***
+14:50:55.655 DEBUG controller.BookDetailController : Book entry saved: ***OPEN THIS BOOK***
+14:50:58.711 DEBUG controller.BookListController : Book record deleted: ***OPEN THIS BOOK***
+14:52:03.535 INFO  model.Main : closing connection...
+16:03:02.049 INFO  model.Main : creating connection...
+16:03:20.258 INFO  model.Main : closing connection...
+16:09:38.233 INFO  model.Main : creating connection...
+16:09:54.113 INFO  model.Main : closing connection...

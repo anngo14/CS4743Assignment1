@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -11,6 +12,12 @@
           <TableColumn fx:id="title" prefWidth="999.0" style="-fx-alignment: CENTER-LEFT;" text="Book Title" />
         </columns>
       </TableView>
-      <Button fx:id="deleteButton" layoutX="423.0" layoutY="601.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete Selected Book" />
+      <Button fx:id="deleteButton" layoutX="404.0" layoutY="599.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete Selected Book" />
+      <TextField fx:id="userSelectedBook" editable="false" layoutX="383.0" layoutY="545.0" prefHeight="39.0" prefWidth="394.0" />
+      <Text layoutX="206.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Book:" wrappingWidth="163.3671875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
