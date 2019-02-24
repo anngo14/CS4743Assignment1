@@ -12,11 +12,14 @@
           <TableColumn fx:id="title" prefWidth="999.0" style="-fx-alignment: CENTER-LEFT;" text="Book Title" />
         </columns>
       </TableView>
-      <Button fx:id="deleteButton" layoutX="404.0" layoutY="599.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete Selected Book" />
-      <TextField fx:id="userSelectedBook" editable="false" layoutX="383.0" layoutY="545.0" prefHeight="39.0" prefWidth="394.0" />
-      <Text layoutX="206.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Book:" wrappingWidth="163.3671875">
+      <Button fx:id="deleteButton" layoutX="726.0" layoutY="545.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete">
          <font>
-            <Font size="24.0" />
+            <Font size="16.0" />
+         </font></Button>
+      <TextField fx:id="userSelectedBook" editable="false" layoutX="306.0" layoutY="543.0" prefHeight="39.0" prefWidth="394.0" />
+      <Text layoutX="161.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Book:" wrappingWidth="136.76165771484375">
+         <font>
+            <Font size="18.0" />
          </font>
       </Text>
    </children>
