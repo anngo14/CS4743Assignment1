@@ -17,6 +17,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import model.Book;
 
@@ -24,6 +26,11 @@ public class BookDetailController implements Initializable, Controller {
 	
 	private static Logger logger = LogManager.getLogger();
 	private Book book;
+	
+	private String initialTitle;
+	private String initialISBN;
+	private String initialSummary;
+	private int initialYear;
 
 	@FXML
 	TextField bookTitle;
@@ -53,13 +60,23 @@ public class BookDetailController implements Initializable, Controller {
 			years.add(year);
 		}
 		yearPick.getItems().addAll(years);
+		
+		recordInitialValues();
+	}
+	
+	public void recordInitialValues()
+	{
+		initialTitle = bookTitle.getText();
+		initialISBN = bookISBN.getText();
+		initialSummary = bookSummary.getText();
+		initialYear = (int) yearPick.getValue();
 	}
 	
 	public void saveBook()
 	{
 		if (!isBookInfoValid()) {
 			return;
-		}	
+		}
 		book.setTitle(bookTitle.getText());
 		book.setISBN(bookISBN.getText());
 		book.setYear((int) yearPick.getValue());
@@ -70,6 +87,7 @@ public class BookDetailController implements Initializable, Controller {
 		} else {
 			updateBook(book);
 		}
+		recordInitialValues();
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
 		logger.debug("Book entry saved: " + book.getTitle());	
 	}
@@ -80,6 +98,17 @@ public class BookDetailController implements Initializable, Controller {
 		} catch (SQLException e) {
 			displaySQLExceptionAlert("Unable to update record: " + book.toString());
 		}
+	}
+	
+	public boolean isBookInfoModified()
+	{
+		if (bookTitle.getText().equals(initialTitle)
+				&& bookSummary.getText().equals(initialSummary)
+				&& bookISBN.getText().equals(initialISBN)
+				&& (int) yearPick.getValue() == initialYear) {
+			return false;
+		}
+		return true;
 	}
 	
 	public boolean isBookInfoValid() 
@@ -138,12 +167,26 @@ public class BookDetailController implements Initializable, Controller {
 		alert.showAndWait();
 	}
 	
-	private void displaySQLExceptionAlert(String message) {
+	private void displaySQLExceptionAlert(String message) 
+	{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Unable to Save");
 		alert.setHeaderText("Update Failed");
 		alert.setContentText(message);
 		alert.showAndWait();
+	}
+	
+	public Optional<ButtonType> displaySaveBeforeLeavingAlert()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Record Modified");
+		alert.setContentText("Save changes before leaving?.");
+		ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+		ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+		ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
+		Optional<ButtonType> result = alert.showAndWait();
+		return result;
 	}
 	
 }
