@@ -77,7 +77,6 @@
 17:13:38.913 DEBUG controller.BookDetailedViewController : Book entry saved
 17:13:40.634 DEBUG controller.BookListController$1 : Book double clicked
 17:13:42.508 DEBUG controller.BookDetailedViewController : Book entry saved
-=======
 01:16:08.871 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
 01:16:12.011 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
 01:16:13.359 DEBUG controller.BookListController$1 : Book double clicked: Eragon
@@ -93,7 +92,6 @@
 01:20:15.642 DEBUG controller.BookDetailedViewController : Book entry saved: Systems Programming
 01:20:53.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 01:20:54.378 DEBUG controller.BookDetailedViewController : Book entry saved: Harry Potter: The Series
-<<<<<<< HEAD
 12:04:07.128 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 12:07:29.821 DEBUG controller.BookListController$1 : Book double clicked: Cat in the Hat
 12:07:39.441 DEBUG controller.BookDetailedViewController : Book entry saved: Cat in the Hat
@@ -114,8 +112,6 @@
 15:17:07.822 DEBUG controller.BookListController$1 : Book double clicked: Eragon
 15:17:11.676 DEBUG controller.BookListController$1 : Book double clicked: Systems Programming
 15:18:26.405 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
-=======
->>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
 17:16:24.066 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
 17:16:29.067 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry
 17:16:30.935 DEBUG controller.BookListController$1 : Book double clicked: Chemistry
@@ -142,7 +138,6 @@
 17:50:02.009 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
 17:50:05.049 DEBUG controller.BookListController$1 : Book double clicked: Chemistry jhjh
 17:50:13.846 DEBUG controller.BookDetailedViewController : Book entry saved: Chemistry jhjh
-<<<<<<< HEAD
 14:44:53.492 DEBUG controller.BookDetailedViewController : Book entry saved: n
 14:44:56.008 DEBUG controller.BookListController$1 : Book double clicked: n
 14:45:01.636 DEBUG controller.BookDetailedViewController : Book entry saved: n
@@ -233,9 +228,6 @@
 20:33:11.561 INFO  model.Main : creating connection...
 20:33:18.429 DEBUG controller.BookListController$1 : Book double clicked: Harry Potter: The Series
 20:33:20.800 INFO  model.Main : closing connection...
-=======
->>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
->>>>>>> branch 'master' of https://github.com/anngo14/CS4743Assignment1.git
 20:43:17.590 INFO  model.Main : creating connection...
 20:43:24.278 DEBUG controller.BookListController$1 : Book double clicked: Test Book
 20:56:01.116 INFO  model.Main : closing connection...
@@ -381,3 +373,8 @@
 16:09:54.113 INFO  model.Main : closing connection...
 18:08:01.951 INFO  model.Main : creating connection...
 18:08:41.740 INFO  model.Main : closing connection...
+18:16:23.447 INFO  model.Main : creating connection...
+18:16:42.815 DEBUG controller.BookListController : Book record deleted: Test
+15:38:59.447 INFO  model.Main : closing connection...
+18:14:14.085 INFO  model.Main : creating connection...
+18:14:14.084 INFO  model.Main : creating connection...
