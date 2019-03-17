@@ -19,6 +19,9 @@ public class Main extends Application{
 	
 	// CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
 	
+	private static final String DB_URL = "jdbc:mysql://easel2.fulgentcorp.com/epg755";
+	private static final String DB_USER = "epg755";
+	private static final String DB_PASSWORD = "0dQKMvg62I89tgv25WNl";
 	private static final Logger logger = LogManager.getLogger();
 
 	public static void main(String[] args) 
@@ -52,15 +55,18 @@ public class Main extends Application{
 	public void init() throws Exception
 	{
 		super.init();
-		logger.info("creating connection...");
-		
-		MysqlDataSource ds = new MysqlDataSource();
-		ds.setURL("jdbc:mysql://easel2.fulgentcorp.com/epg755");
-		ds.setUser("epg755");
-		ds.setPassword("0dQKMvg62I89tgv25WNl");
-		Connection connection = ds.getConnection();
-		
+		logger.info("creating connection..."); 
+		Connection connection = establishDataSource().getConnection();
 		BookTableGateway.getInstance().setConnection(connection);
+	}
+	
+	public MysqlDataSource establishDataSource()
+	{
+		MysqlDataSource ds = new MysqlDataSource();
+		ds.setURL(DB_URL);
+		ds.setUser(DB_USER);
+		ds.setPassword(DB_PASSWORD);
+		return ds;
 	}
 	
 	@Override 
@@ -68,7 +74,6 @@ public class Main extends Application{
 	{
 		super.stop();
 		logger.info("closing connection...");
-		
 		BookTableGateway.getInstance().getConnection().close();
 	}
 

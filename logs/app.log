@@ -378,3 +378,71 @@
 15:38:59.447 INFO  model.Main : closing connection...
 18:14:14.085 INFO  model.Main : creating connection...
 18:14:14.084 INFO  model.Main : creating connection...
+20:16:54.576 INFO  model.Main : creating connection...
+20:17:03.171 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+20:17:11.938 INFO  controller.MainController : Changes not saved. Stayed at book detail view.
+20:17:12.586 INFO  controller.MainController : Changes not saved. Stayed at book detail view.
+20:17:16.482 INFO  controller.MainController : Changes not saved. Exited book detail view.
+20:17:18.122 DEBUG controller.BookListController$1 : Book double clicked: Test Book
+20:17:26.104 DEBUG BookDetailController.BookDetailController : Book entry saved: Test Book
+20:17:26.105 INFO  controller.MainController : Changes saved. Exited book detail view.
+20:17:38.606 INFO  controller.MainController : Changes not saved. Exited book detail view.
+21:53:52.445 INFO  model.Main : creating connection...
+21:53:55.624 INFO  model.Main : creating connection...
+21:57:14.542 INFO  model.Main : creating connection...
+21:57:15.061 INFO  controller.BookListController$1 : Book double clicked: Test Book
+21:57:25.652 INFO  controller.BookListController$1 : Book double clicked: Test Book
+21:57:36.687 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+21:57:36.727 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+21:57:44.654 INFO  controller.BookListController$1 : Book double clicked: Test Book
+21:57:54.990 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+21:57:55.037 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+21:58:29.236 INFO  controller.BookListController$1 : Book double clicked: Harry Potter: The Series
+21:58:56.477 INFO  model.Main : creating connection...
+21:59:02.510 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:01:36.667 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+22:01:36.727 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:01:37.500 INFO  model.Main : closing connection...
+22:01:43.428 INFO  model.Main : creating connection...
+22:01:48.499 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:04:11.163 INFO  model.Main : creating connection...
+22:04:16.123 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:05:37.652 INFO  model.Main : creating connection...
+22:05:41.728 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:05:43.027 INFO  gateway.BookTableGateway : Actual: 2019-03-16T21:56:14; Last: 2019-03-16T21:56:14
+22:06:25.739 INFO  model.Main : creating connection...
+22:06:38.324 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:06:40.134 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:10:17.582 INFO  model.Main : creating connection...
+22:10:19.544 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:10:35.051 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:11:10.617 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:11:13.938 INFO  gateway.BookTableGateway : Actual: 2019-03-16T22:11:10; Last: 2019-03-16T21:56:14
+22:11:23.526 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+22:11:23.572 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:11:29.351 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:12:07.518 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:12:13.338 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:12:15.471 INFO  gateway.BookTableGateway : Actual: 2019-03-16T22:12:13; Last: 2019-03-16T22:11:10
+22:12:16.594 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+22:12:16.636 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:12:18.094 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:14:03.318 INFO  model.Main : creating connection...
+22:14:04.714 INFO  model.Main : creating connection...
+22:14:24.732 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:14:26.371 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:16:16.701 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:16:49.671 INFO  model.Main : creating connection...
+22:16:50.352 INFO  model.Main : creating connection...
+22:19:05.259 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:19:11.257 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:19:19.787 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:20:31.884 INFO  gateway.BookTableGateway : Update failed. Newer book record data appeared during edit.
+22:20:31.939 INFO  BookDetailController.BookDetailController : Book entry saved: Test Book
+22:20:33.512 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:20:57.031 INFO  model.Main : closing connection...
+22:21:01.413 INFO  model.Main : creating connection...
+22:21:01.435 INFO  model.Main : creating connection...
+22:22:14.430 INFO  controller.BookListController$1 : Book double clicked: Test Book
+22:22:18.177 INFO  controller.BookListController$1 : Book double clicked: Eragon
+22:22:22.926 INFO  controller.BookListController$1 : Book double clicked: Test Book

@@ -55,7 +55,7 @@ public class BookListController implements Initializable, Controller {
 				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
 					Book book = (Book) bookTable.getSelectionModel().getSelectedItem();
 					handleDoubleClick(book);
-					logger.debug("Book double clicked: " + book.getTitle());
+					logger.info("Book double clicked: " + book.getTitle());
 				} else if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 					selectedBook = (Book) bookTable.getSelectionModel().getSelectedItem();
 					userSelectedBook.setText(selectedBook.getTitle());
@@ -76,7 +76,7 @@ public class BookListController implements Initializable, Controller {
 			return;
 		BookTableGateway.getInstance().deleteBook(selectedBook);
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
-		logger.debug("Book record deleted: " + selectedBook.getTitle());
+		logger.info("Book record deleted: " + selectedBook.getTitle());
 	}
 
 }

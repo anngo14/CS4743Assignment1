@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class Book {
@@ -8,6 +9,7 @@ public class Book {
 	private String isbn;
 	private String summary;
 	private int yearPublished;
+	private LocalDateTime lastModified;
 	private int id;
 	
 	private final String DEFAULT_TITLE = "";
@@ -22,24 +24,32 @@ public class Book {
 		this.isbn = DEFAULT_ISBN;
 		this.summary = DEFAULT_SUMMARY;
 		this.yearPublished = DEFAULT_YEAR_PUBLISHED;
+		this.lastModified = null;
 		this.id = DEFAULT_ID;
 	}
 	
-	public Book(String title, String isbn, String summary, int yearPublished) 
+	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified) 
 	{
 		this.title = title;
 		this.isbn = isbn;
 		this.summary = summary;
 		this.yearPublished = yearPublished;
+		this.lastModified = lastModified;
 	}
 	
-	public Book(String title, String isbn, String summary, int yearPublished, int id) 
+	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified, int id) 
 	{
 		this.title = title;
 		this.isbn = isbn;
 		this.summary = summary;
 		this.yearPublished = yearPublished;
+		this.lastModified = lastModified;
 		this.id = id;
+	}
+	
+	public boolean isNewBook()
+	{
+		return getId() == -1;
 	}
 	
 	public String getTitle() 
@@ -60,6 +70,11 @@ public class Book {
 	public int getYearPublished() 
 	{
 		return yearPublished;
+	}
+	
+	public LocalDateTime getLastModified()
+	{
+		return lastModified;
 	}
 	
 	public int getId() 
@@ -85,6 +100,11 @@ public class Book {
 	public void setYear(int yearPublished) 
 	{
 		this.yearPublished = yearPublished;
+	}
+	
+	public void setLastModified(LocalDateTime lastModified)
+	{
+		this.lastModified = lastModified; 
 	}
 	
 	public void setId(int id) 

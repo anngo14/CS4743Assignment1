@@ -4,15 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import controller.BookDetailController.AlertManager;
 import model.Book;
 
 public class BookTableGateway {
 	
 	private static BookTableGateway instance = null;
 	private Connection connection;
-	
+	private static Logger logger = LogManager.getLogger();
 	public BookTableGateway()
 	{
 		
@@ -43,6 +48,7 @@ public class BookTableGateway {
 						, resultSet.getString("isbn")
 						, resultSet.getString("summary")
 						, resultSet.getInt("year_published")
+						, resultSet.getTimestamp("last_modified").toLocalDateTime()
 						, resultSet.getInt("id")));
 			}
 		} catch (SQLException e) {
@@ -51,8 +57,14 @@ public class BookTableGateway {
 		return books;
 	}
 	
-	public void updateBook(Book book) throws SQLException
+	public void updateBookRecord(Book book) throws SQLException
 	{
+		LocalDateTime actualLastModified = getActualLastModifiedFromRecord(book);
+		if (actualLastModified == null || !actualLastModified.equals(book.getLastModified())) {
+			AlertManager.displayUpdateAlert();
+			logger.info("Update failed. Newer book record data appeared during edit.");
+			return;
+		}
 		PreparedStatement statement = null;
 		try {
 			String query = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ? WHERE id = ?";
@@ -68,7 +80,25 @@ public class BookTableGateway {
 		}
 	}
 	
-	public void insertBook(Book book)
+	public LocalDateTime getActualLastModifiedFromRecord(Book book)
+	{
+		PreparedStatement preparedStatement = null;
+		LocalDateTime actualLastModified = null;
+		try {
+			String query = "SELECT * FROM Books WHERE id = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, book.getId());			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				actualLastModified = resultSet.getTimestamp("last_modified").toLocalDateTime();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return actualLastModified;
+	}
+	
+	public void insertBookRecord(Book book)
 	{
 		PreparedStatement statement = null;
 		try {

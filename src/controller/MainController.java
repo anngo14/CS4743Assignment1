@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import controller.BookDetailController.AlertManager;
+import controller.BookDetailController.BookDetailController;
 import gateway.BookTableGateway;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +82,6 @@ public class MainController {
 		}
 	}
 	
-	
 	private boolean isViewChangeAuthorized()
 	{
 		if (borderPane.getCenter().getId() != null
@@ -88,18 +89,18 @@ public class MainController {
 		{
 			return getUserResponseToSaveAlert();
 		}
-		return true; // Continue if not coming from BookDetailView
+		return true;
 	}
 	
 	private boolean getUserResponseToSaveAlert()
 	{
 		BookDetailController bookDetailController = (BookDetailController) currentController;
-		if (bookDetailController.isBookInfoModified())
+		if (bookDetailController.unsavedChangesExist())
 		{
-			Optional<ButtonType> result = bookDetailController.displaySaveBeforeLeavingAlert();
+			Optional<ButtonType> result = AlertManager.displaySaveBeforeLeavingAlert();
 			return getUserResponseToSaveAlert(bookDetailController, result);
 		}
-		return true; // Continue if book info has not been modified
+		return true;
 	}
 	
 	private boolean getUserResponseToSaveAlert(BookDetailController controller, Optional<ButtonType> result)
@@ -107,15 +108,15 @@ public class MainController {
 		if (result.isPresent()) {
 			if (result.get().getText().equals("Yes")) {
 				controller.saveBook();
+				logger.info("Changes saved. Exited book detail view.");
 			} else if (result.get().getText().equals("No")) {
-				// Continue without saving
 				logger.info("Changes not saved. Exited book detail view.");
 			} else if (result.get().getText().equals("Cancel")) {
 				logger.info("Changes not saved. Stayed at book detail view.");
 				return false;
 			}
 		}
-		return true; // Continue unless user selected "Cancel"
+		return true;
 	}
 	
 	@FXML
