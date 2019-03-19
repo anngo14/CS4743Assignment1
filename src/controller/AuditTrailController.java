@@ -2,8 +2,10 @@ package controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import gateway.AuditTableGateway;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,24 +34,24 @@ public class AuditTrailController implements Initializable, Controller {
 	@FXML
 	TableColumn messages;
 	
-	public AuditTrailController(ArrayList<AuditTrailEntry> list)
+	public AuditTrailController(Book book)
 	{
-		auditList = list;
-		book = null;
+		this.book = book;
+		this.auditList = book.getAuditTrail();
+		
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		bookTitle.setText(book.getTitle());
-		times.setCellFactory(new PropertyValueFactory<>("Date"));
-		messages.setCellFactory(new PropertyValueFactory<>("Message"));
+		times.setCellValueFactory(new PropertyValueFactory<>("Date"));
+		messages.setCellValueFactory(new PropertyValueFactory<>("Message"));
 		table.setItems(FXCollections.observableArrayList(auditList));
 	}
 	
-	@FXML
-	public void backButton(ActionEvent event)
+	public void backButton()
 	{
-		
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(this.book));
 	}
 
 }

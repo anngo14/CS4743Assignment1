@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.BookDetailController.AlertManager;
+import model.AuditTrailEntry;
 import model.Book;
 
 public class BookTableGateway {
@@ -197,6 +198,27 @@ public class BookTableGateway {
 		}
 		
 		return original;
+	}
+	public ArrayList<AuditTrailEntry> getSpecificAuditTrail(Book book)
+	{
+		ArrayList<AuditTrailEntry> trail = new ArrayList<AuditTrailEntry>();
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT * FROM book_audit_trail WHERE book_id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, book.getId());
+			
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next())
+			{ 
+				trail.add(new AuditTrailEntry(resultSet.getInt("id")
+						, resultSet.getDate("date_added")
+						, resultSet.getString("entry_msg")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return trail;
 	}
 	public Connection getConnection()
 	{

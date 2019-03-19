@@ -49,7 +49,7 @@ public class MainController {
 			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
 		} else if (event.getSource() == addBook) {
 			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()));
-		}
+		} 
 	}
 	
 	public void changeView(ViewType viewType, Optional<Book> book) 
@@ -70,6 +70,9 @@ public class MainController {
 				viewName = "/view/BookListView.fxml";
 				controller = new BookListController(BookTableGateway.getInstance().getBooks());
 				break;
+			case AUDIT_TRAIL_VIEW:
+				viewName = "/view/AuditTrailView.fxml";
+				controller = new AuditTrailController(book.get());
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));

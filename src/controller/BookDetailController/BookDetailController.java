@@ -17,6 +17,7 @@ import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -43,6 +44,8 @@ public class BookDetailController implements Initializable, Controller {
 	TextArea bookSummary;
 	@FXML
 	AnchorPane content;
+	@FXML
+	Button audit;
 	@FXML 
 	ComboBox<Integer> yearPick;
 	@FXML
@@ -57,6 +60,11 @@ public class BookDetailController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		if(book.isNewBook()) {
+			audit.setDisable(true);
+			audit.setOpacity(0.5);
+		}
+		
 		bookTitle.setText(book.getTitle());
 		bookISBN.setText(book.getISBN());
 		bookSummary.setText(book.getSummary());
@@ -108,7 +116,7 @@ public class BookDetailController implements Initializable, Controller {
 			int id = BookTableGateway.getInstance().getBookId(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
 			trail.setMessage("Book Added");
-			System.out.println(trail.toString());
+			
 			AuditTableGateway.getInstance().insertAudit(trail, id);
 		} else {
 			updateBookRecord(book);
@@ -140,6 +148,11 @@ public class BookDetailController implements Initializable, Controller {
 			return false;
 		}
 		return true;
+	}
+	
+	public void showAudit()
+	{
+		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book));
 	}
 	
 }

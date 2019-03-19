@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.Logger;
 
+import gateway.AuditTableGateway;
 import gateway.BookTableGateway;
 
 public class BookListController implements Initializable, Controller {
@@ -74,6 +75,7 @@ public class BookListController implements Initializable, Controller {
 	{
 		if (selectedBook == null)
 			return;
+		AuditTableGateway.getInstance().deleteAudit(selectedBook);
 		BookTableGateway.getInstance().deleteBook(selectedBook);
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
 		logger.info("Book record deleted: " + selectedBook.getTitle());
