@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -211,8 +213,9 @@ public class BookTableGateway {
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next())
 			{ 
+				Date date = resultSet.getTimestamp("date_added");
 				trail.add(new AuditTrailEntry(resultSet.getInt("id")
-						, resultSet.getDate("date_added")
+						, date
 						, resultSet.getString("entry_msg")));
 			}
 		} catch (SQLException e) {
