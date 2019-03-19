@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import controller.Controller;
 import controller.MainController;
 import controller.ViewType;
+import gateway.AuditTableGateway;
 import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.AuditTrailEntry;
 import model.Book;
 import model.Publisher;
 
@@ -101,6 +103,10 @@ public class BookDetailController implements Initializable, Controller {
 		
 		if(book.isNewBook()) {
 			BookTableGateway.getInstance().insertBookRecord(book);
+			AuditTrailEntry trail = new AuditTrailEntry();
+			trail.setMessage("Book Added");
+			System.out.println(trail.toString());
+			//AuditTableGateway.getInstance().insertAudit(trail, id);
 		} else {
 			updateBookRecord(book);
 		}
@@ -112,6 +118,12 @@ public class BookDetailController implements Initializable, Controller {
 	public void updateBookRecord(Book book) {
 		try {
 			BookTableGateway.getInstance().updateBookRecord(book);
+			AuditTrailEntry trail = new AuditTrailEntry();
+			trail.setMessage(book.diffBook(this.book, book));
+			System.out.println(trail.toString());
+
+			System.out.println(book.diffBook(this.book, book));
+			//AuditTableGateway.getInstance().insertAudit(trail, book.getId());
 		} catch (SQLException e) {
 			AlertManager.displaySQLExceptionAlert("Unable to update record: " + book.toString());
 		}

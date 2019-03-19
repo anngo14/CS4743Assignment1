@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 
+import gateway.PublisherTableGateway;
+
 public class Book {
 
 	private String title;
@@ -50,7 +52,33 @@ public class Book {
 		this.id = id;
 		this.publisher_id = publisherId;
 	}
-	
+	public String diffBook(Book book1, Book book2)
+	{
+		String diff = "";
+		if(book2.getISBN().compareTo(book1.getISBN()) != 0)
+		{
+			diff += "ISBN changed from " + book1.getISBN() + " to " + book2.getISBN() + "\n";
+		}
+		if(book2.getPublisherId() != book1.getPublisherId())
+		{
+			String old = PublisherTableGateway.getInstance().getPublisherName(book1.getPublisherId());
+			String newP = PublisherTableGateway.getInstance().getPublisherName(book2.getPublisherId());
+			diff += "Publisher changed from " + old + " to " + newP + "\n";
+		}
+		if(book2.getSummary().compareTo(book1.getSummary()) != 0)
+		{
+			diff += "Summary changed from " + book1.getSummary() + " to " + book2.getSummary() + "\n";
+		}
+		if(book2.getTitle().compareTo(book1.getTitle()) != 0)
+		{
+			diff += "Title changed from " + book1.getTitle() + " to " + book2.getTitle() + "\n";
+		}
+		if(book2.getYearPublished() != book1.getYearPublished())
+		{
+			diff += "Year Published changed from " + book1.getYearPublished()+ " to " + book2.getYearPublished() + "\n"; 
+		}
+		return diff;
+	}
 	public boolean isNewBook()
 	{
 		return getId() == -1;

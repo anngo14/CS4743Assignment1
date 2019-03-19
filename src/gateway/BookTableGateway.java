@@ -129,6 +129,47 @@ public class BookTableGateway {
 		}
 	}
 	
+	public String getBookName(int id)
+	{
+		String title = "";
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT title FROM Books where id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				title = resultSet.getString("title");
+			}
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return title;
+	}
+	public int getBookId(String title)
+	{
+		int id = -1;
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT id FROM Books where title = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1,  title);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				id = resultSet.getInt("id");
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return id;
+	}
 	public Connection getConnection()
 	{
 		return connection;
