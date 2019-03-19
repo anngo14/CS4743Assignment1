@@ -49,7 +49,8 @@ public class BookTableGateway {
 						, resultSet.getString("summary")
 						, resultSet.getInt("year_published")
 						, resultSet.getTimestamp("last_modified").toLocalDateTime()
-						, resultSet.getInt("id")));
+						, resultSet.getInt("id")
+						, resultSet.getInt("publisher_id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

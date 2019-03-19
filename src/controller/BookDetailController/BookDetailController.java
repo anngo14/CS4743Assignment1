@@ -13,6 +13,7 @@ import controller.Controller;
 import controller.MainController;
 import controller.ViewType;
 import gateway.BookTableGateway;
+import gateway.PublisherTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Book;
+import model.Publisher;
 
 public class BookDetailController implements Initializable, Controller {
 	
@@ -40,6 +42,8 @@ public class BookDetailController implements Initializable, Controller {
 	AnchorPane content;
 	@FXML 
 	ComboBox<Integer> yearPick;
+	@FXML
+	ComboBox<String> publisher;
 	
 	public BookDetailController(Book book) 
 	{
@@ -54,11 +58,22 @@ public class BookDetailController implements Initializable, Controller {
 		bookSummary.setText(book.getSummary());
 		yearPick.setValue(book.getYearPublished());
 		
+		
 		ArrayList<Integer> years = new ArrayList<Integer>();
+		ArrayList<Publisher> publisherList = new ArrayList<Publisher>();
+		ArrayList<String> publisherNames = new ArrayList<String>();
+
 		for(int year = Calendar.getInstance().get(Calendar.YEAR); year >= 1455; year--) {
 			years.add(year);
 		}
 		yearPick.getItems().addAll(years);
+		
+		publisherList = PublisherTableGateway.getInstance().fetchPublishers();
+		for(Publisher p: publisherList)
+		{
+			publisherNames.add(p.getName());
+		}
+		publisher.getItems().addAll(publisherNames);
 		
 		updateLastSavedBookInfoValues();
 	}

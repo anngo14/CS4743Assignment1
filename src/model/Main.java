@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 import controller.MainController;
 import gateway.BookTableGateway;
+import gateway.PublisherTableGateway;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,6 +59,7 @@ public class Main extends Application{
 		logger.info("creating connection..."); 
 		Connection connection = establishDataSource().getConnection();
 		BookTableGateway.getInstance().setConnection(connection);
+		PublisherTableGateway.getInstance().setConnection(connection);
 	}
 	
 	public MysqlDataSource establishDataSource()
@@ -75,6 +77,7 @@ public class Main extends Application{
 		super.stop();
 		logger.info("closing connection...");
 		BookTableGateway.getInstance().getConnection().close();
+		PublisherTableGateway.getInstance().getConnection().close();
 	}
 
 }

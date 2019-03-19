@@ -48,5 +48,11 @@
          </font>
       </Button>
       <ComboBox fx:id="yearPick" layoutX="626.0" layoutY="21.0" prefHeight="56.0" prefWidth="327.0" promptText="Year Published" />
+      <Text layoutX="542.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publisher:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="publisher" layoutX="703.0" layoutY="150.0" prefHeight="56.0" prefWidth="256.0" promptText="Publisher" />
    </children>
 </AnchorPane>

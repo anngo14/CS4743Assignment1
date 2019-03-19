@@ -11,6 +11,7 @@ public class Book {
 	private int yearPublished;
 	private LocalDateTime lastModified;
 	private int id;
+	private int publisher_id;
 	
 	private final String DEFAULT_TITLE = "";
 	private final String DEFAULT_ISBN = "";
@@ -26,6 +27,7 @@ public class Book {
 		this.yearPublished = DEFAULT_YEAR_PUBLISHED;
 		this.lastModified = null;
 		this.id = DEFAULT_ID;
+		this.publisher_id = DEFAULT_ID;
 	}
 	
 	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified) 
@@ -37,7 +39,7 @@ public class Book {
 		this.lastModified = lastModified;
 	}
 	
-	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified, int id) 
+	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified, int id, int publisherId) 
 	{
 		this.title = title;
 		this.isbn = isbn;
@@ -45,6 +47,7 @@ public class Book {
 		this.yearPublished = yearPublished;
 		this.lastModified = lastModified;
 		this.id = id;
+		this.publisher_id = publisherId;
 	}
 	
 	public boolean isNewBook()
