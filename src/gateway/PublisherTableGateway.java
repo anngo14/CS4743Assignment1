@@ -44,15 +44,55 @@ public class PublisherTableGateway {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next())
 			{ 
-				publisherList.add(new Publisher(resultSet.getInt("id"),
-						resultSet.getString("publisher_name"),
-						resultSet.getDate("date_added")));
+				publisherList.add(new Publisher(resultSet.getInt("id")
+						, resultSet.getString("publisher_name")
+						, resultSet.getDate("date_added")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return publisherList;
+	}
+	public String getPublisherName(int id)
+	{
+		String name = "";
+		PreparedStatement statement = null;
+		
+		try {
+			String query = "SELECT publisher_name FROM Publisher WHERE id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1,  id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				name = resultSet.getString("publisher_name");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
+	public int getPublisherId(String name)
+	{
+		int id = -1;
+		PreparedStatement statement = null;
+		
+		try {
+			String query = "SELECT id FROM Publisher WHERE publisher_name = ?";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				id = resultSet.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 	public Connection getConnection()
 	{

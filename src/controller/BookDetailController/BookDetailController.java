@@ -57,7 +57,7 @@ public class BookDetailController implements Initializable, Controller {
 		bookISBN.setText(book.getISBN());
 		bookSummary.setText(book.getSummary());
 		yearPick.setValue(book.getYearPublished());
-		
+		publisher.setValue(PublisherTableGateway.getInstance().getPublisherName(book.getPublisherId()));
 		
 		ArrayList<Integer> years = new ArrayList<Integer>();
 		ArrayList<Publisher> publisherList = new ArrayList<Publisher>();
@@ -97,6 +97,7 @@ public class BookDetailController implements Initializable, Controller {
 		book.setISBN(bookISBN.getText());
 		book.setYear((int) yearPick.getValue());
 		book.setSummary(bookSummary.getText());
+		book.setPublisherId(PublisherTableGateway.getInstance().getPublisherId(publisher.getValue()));
 		
 		if(book.isNewBook()) {
 			BookTableGateway.getInstance().insertBookRecord(book);

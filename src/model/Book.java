@@ -18,6 +18,7 @@ public class Book {
 	private final String DEFAULT_SUMMARY = "";
 	private final int DEFAULT_YEAR_PUBLISHED = Calendar.getInstance().get(Calendar.YEAR);
 	private final int DEFAULT_ID = -1;
+	private final int DEFAULT_PID = 1;
 	
 	public Book() 
 	{
@@ -27,7 +28,7 @@ public class Book {
 		this.yearPublished = DEFAULT_YEAR_PUBLISHED;
 		this.lastModified = null;
 		this.id = DEFAULT_ID;
-		this.publisher_id = DEFAULT_ID;
+		this.publisher_id = DEFAULT_PID;
 	}
 	
 	public Book(String title, String isbn, String summary, int yearPublished, LocalDateTime lastModified) 
@@ -84,6 +85,10 @@ public class Book {
 	{
 		return id;
 	}
+	public int getPublisherId()
+	{
+		return publisher_id;
+	}
 	
 	public void setTitle(String title) 
 	{
@@ -113,6 +118,10 @@ public class Book {
 	public void setId(int id) 
 	{
 		this.id = id;
+	}
+	public void setPublisherId(int pId)
+	{
+		this.publisher_id = pId;
 	}
 	
 	public String toString() 

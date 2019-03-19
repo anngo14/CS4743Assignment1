@@ -68,13 +68,14 @@ public class BookTableGateway {
 		}
 		PreparedStatement statement = null;
 		try {
-			String query = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ? WHERE id = ?";
+			String query = "UPDATE Books SET title = ?, isbn = ?, summary = ?, year_published = ?, publisher_id = ? WHERE id = ?";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, book.getTitle());
 			statement.setString(2, book.getISBN());
 			statement.setString(3, book.getSummary());
 			statement.setInt(4, book.getYearPublished());
-			statement.setInt(5, book.getId());
+			statement.setInt(5, book.getPublisherId());
+			statement.setInt(6, book.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			throw e;
@@ -103,12 +104,13 @@ public class BookTableGateway {
 	{
 		PreparedStatement statement = null;
 		try {
-			String query = "INSERT INTO Books (title, isbn, summary, year_published) VALUES (?,?,?,?)";
+			String query = "INSERT INTO Books (title, isbn, summary, year_published, publisher_id) VALUES (?,?,?,?,?)";
 			statement = connection.prepareStatement(query);
 			statement.setString(1, book.getTitle());
 			statement.setString(2, book.getISBN());
 			statement.setString(3, book.getSummary());
 			statement.setInt(4, book.getYearPublished());
+			statement.setInt(5, book.getPublisherId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
