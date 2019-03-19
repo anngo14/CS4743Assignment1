@@ -41,4 +41,13 @@ public class AuditTableGateway {
 		}
 		
 	}
+	public Connection getConnection()
+	{
+		return connection;
+	}
+	
+	public void setConnection(Connection connection)
+	{
+		this.connection = connection;
+	}
 }

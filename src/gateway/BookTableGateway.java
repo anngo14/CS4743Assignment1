@@ -150,14 +150,15 @@ public class BookTableGateway {
 		
 		return title;
 	}
-	public int getBookId(String title)
+	public int getBookId(Book book)
 	{
 		int id = -1;
 		PreparedStatement statement = null;
 		try {
-			String query = "SELECT id FROM Books where title = ?";
+			String query = "SELECT id FROM Books where title = ? AND isbn = ?";
 			statement = connection.prepareStatement(query);
-			statement.setString(1,  title);
+			statement.setString(1, book.getTitle());
+			statement.setString(2, book.getISBN());
 			
 			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next())
@@ -169,6 +170,33 @@ public class BookTableGateway {
 			e.printStackTrace();
 		}
 		return id;
+	}
+	public Book getOriginal(Book book)
+	{
+		Book original = new Book();
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT * FROM Books where id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, book.getId());
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				original = new Book(resultSet.getString("title")
+						, resultSet.getString("isbn")
+						, resultSet.getString("summary")
+						, resultSet.getInt("year_published")
+						, resultSet.getTimestamp("last_modified").toLocalDateTime()
+						, resultSet.getInt("id")
+						, resultSet.getInt("publisher_id"));
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return original;
 	}
 	public Connection getConnection()
 	{

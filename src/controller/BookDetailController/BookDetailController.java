@@ -29,6 +29,7 @@ public class BookDetailController implements Initializable, Controller {
 	
 	private static Logger logger = LogManager.getLogger();
 	private Book book;
+	private Book bookOriginal;
 	private String lastSavedTitle;
 	private String lastSavedISBN;
 	private String lastSavedSummary;
@@ -50,6 +51,7 @@ public class BookDetailController implements Initializable, Controller {
 	public BookDetailController(Book book) 
 	{
 		this.book = book;
+		this.bookOriginal = this.book;
 	}
 	
 	@Override
@@ -60,7 +62,7 @@ public class BookDetailController implements Initializable, Controller {
 		bookSummary.setText(book.getSummary());
 		yearPick.setValue(book.getYearPublished());
 		publisher.setValue(PublisherTableGateway.getInstance().getPublisherName(book.getPublisherId()));
-		
+
 		ArrayList<Integer> years = new ArrayList<Integer>();
 		ArrayList<Publisher> publisherList = new ArrayList<Publisher>();
 		ArrayList<String> publisherNames = new ArrayList<String>();
@@ -103,10 +105,11 @@ public class BookDetailController implements Initializable, Controller {
 		
 		if(book.isNewBook()) {
 			BookTableGateway.getInstance().insertBookRecord(book);
+			int id = BookTableGateway.getInstance().getBookId(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
 			trail.setMessage("Book Added");
 			System.out.println(trail.toString());
-			//AuditTableGateway.getInstance().insertAudit(trail, id);
+			AuditTableGateway.getInstance().insertAudit(trail, id);
 		} else {
 			updateBookRecord(book);
 		}
@@ -117,13 +120,12 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void updateBookRecord(Book book) {
 		try {
+			this.bookOriginal = BookTableGateway.getInstance().getOriginal(book);
 			BookTableGateway.getInstance().updateBookRecord(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
-			trail.setMessage(book.diffBook(this.book, book));
-			System.out.println(trail.toString());
-
-			System.out.println(book.diffBook(this.book, book));
-			//AuditTableGateway.getInstance().insertAudit(trail, book.getId());
+			trail.setMessage(book.diffBook(this.bookOriginal, book));
+			
+			AuditTableGateway.getInstance().insertAudit(trail, book.getId());
 		} catch (SQLException e) {
 			AlertManager.displaySQLExceptionAlert("Unable to update record: " + book.toString());
 		}

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.sql.Connection;
 import controller.MainController;
+import gateway.AuditTableGateway;
 import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 import javafx.application.Application;
@@ -60,6 +61,7 @@ public class Main extends Application{
 		Connection connection = establishDataSource().getConnection();
 		BookTableGateway.getInstance().setConnection(connection);
 		PublisherTableGateway.getInstance().setConnection(connection);
+		AuditTableGateway.getInstance().setConnection(connection);
 	}
 	
 	public MysqlDataSource establishDataSource()
@@ -78,6 +80,7 @@ public class Main extends Application{
 		logger.info("closing connection...");
 		BookTableGateway.getInstance().getConnection().close();
 		PublisherTableGateway.getInstance().getConnection().close();
+		AuditTableGateway.getInstance().getConnection().close();
 	}
 
 }
