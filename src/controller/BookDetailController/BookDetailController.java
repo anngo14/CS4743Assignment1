@@ -131,9 +131,13 @@ public class BookDetailController implements Initializable, Controller {
 			this.bookOriginal = BookTableGateway.getInstance().getOriginal(book);
 			BookTableGateway.getInstance().updateBookRecord(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
-			trail.setMessage(book.diffBook(this.bookOriginal, book));
-			
-			AuditTableGateway.getInstance().insertAudit(trail, book.getId());
+			String message = book.diffBook(this.bookOriginal, book);
+			trail.setMessage(message);
+
+			if(message.compareTo("") != 0)
+			{
+				AuditTableGateway.getInstance().insertAudit(trail, book.getId());
+			}
 		} catch (SQLException e) {
 			AlertManager.displaySQLExceptionAlert("Unable to update record: " + book.toString());
 		}

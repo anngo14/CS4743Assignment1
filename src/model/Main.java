@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	// CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
+	// CS 4743 Assignment 3 by Richard Azille, Andrew Ngo
 	
 	private static final String DB_URL = "jdbc:mysql://easel2.fulgentcorp.com/epg755";
 	private static final String DB_USER = "epg755";
