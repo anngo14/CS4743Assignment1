@@ -7,19 +7,35 @@ public class Author {
 	private String firstName;
 	private String lastName;
 	private LocalDate dateOfBirth;
-	private char gender; 
+	private Character gender; 
 	private String webSite;
 	
-	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, char gender) {
-		this.id =id;
+	private final int DEFAULT_ID = -1;
+	private final String DEFAULT_FIRST_NAME = "";
+	private final String DEFAULT_LAST_NAME = "";
+	private final LocalDate DEFAULT_DOB = LocalDate.now();
+	private final Character DEFAULT_GENDER = null;
+	
+	public Author() {
+		this.id = DEFAULT_ID;
+		this.firstName = DEFAULT_FIRST_NAME;
+		this.lastName = DEFAULT_LAST_NAME;
+		this.dateOfBirth = DEFAULT_DOB;
+		this.gender = DEFAULT_GENDER;
+		this.webSite = null;
+	}
+	
+	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, Character gender) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
+		this.webSite = null;
 	}
 	
-	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, char gender, String webSite) {
-		this.id =id;
+	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, Character gender, String webSite) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
@@ -59,11 +75,11 @@ public class Author {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public char getGender() {
+	public Character getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(Character gender) {
 		this.gender = gender;
 	}
 
