@@ -81,6 +81,17 @@ public class Book {
 		}
 		return diff;
 	}
+	
+	public ArrayList<AuthorBook> getAuthors() {
+		ArrayList<AuthorBook> authorBooks = new ArrayList<>();
+		try {
+			BookTableGateway.getInstance().getAuthorsForBook(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return authorBooks;
+	}
+	
 	public boolean isNewBook()
 	{
 		return getId() == -1;

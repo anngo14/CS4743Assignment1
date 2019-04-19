@@ -6,6 +6,10 @@ public class AuthorBook {
 	private int royalty;
 	private boolean newRecord = true;
 	
+	public AuthorBook() {
+		
+	}
+	
 	public AuthorBook(Author author, Book book, int royalty) {
 		this.author = author;
 		this.book = book;

@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Author {
@@ -25,20 +26,20 @@ public class Author {
 		this.webSite = null;
 	}
 	
-	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, Character gender) {
+	public Author(int id, String firstName, String lastName, Date dateOfBirth, Character gender) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
+		this.dateOfBirth = dateOfBirth.toLocalDate();
 		this.gender = gender;
 		this.webSite = null;
 	}
 	
-	public Author(int id, String firstName, String lastName, LocalDate dateOfBirth, Character gender, String webSite) {
+	public Author(int id, String firstName, String lastName, Date dateOfBirth, Character gender, String webSite) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
+		this.dateOfBirth = dateOfBirth.toLocalDate();
 		this.gender = gender;
 		this.webSite = webSite;
 	}
