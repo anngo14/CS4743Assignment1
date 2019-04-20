@@ -27,6 +27,9 @@ public class AuthorBook {
 		return author;
 	}
 
+	public String getAuthorName() {
+		return author.getFirstName() + " " + author.getLastName();
+	}
 	public void setAuthor(Author author) {
 		this.author = author;
 	}

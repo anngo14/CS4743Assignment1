@@ -43,6 +43,15 @@ public class Author {
 		this.gender = gender;
 		this.webSite = webSite;
 	}
+	public Author(String firstName, String lastName, Date dateOfBirth, Character gender, String webSite)
+	{
+		this.id = DEFAULT_ID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth.toLocalDate();
+		this.gender = gender;
+		this.webSite = webSite;
+	}
 
 	public int getId() {
 		return id;
@@ -68,8 +77,9 @@ public class Author {
 		this.lastName = lastName;
 	}
 
-	public LocalDate getDateOfBirth() {
-		return dateOfBirth;
+	public Date getDateOfBirth() {
+		java.util.Date date = java.sql.Date.valueOf(dateOfBirth);
+		return (Date) date;
 	}
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {

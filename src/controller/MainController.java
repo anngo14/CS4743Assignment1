@@ -73,6 +73,11 @@ public class MainController {
 			case AUDIT_TRAIL_VIEW:
 				viewName = "/view/AuditTrailView.fxml";
 				controller = new AuditTrailController(book.get());
+				break;
+			case AUTHOR_DETAIL_VIEW:
+				viewName = "/view/AuthorDetailView.fxml";
+				controller = new AuthorDetailController(book.get());
+				break;
 		}
 		try {
 			FXMLLoader loader = new FXMLLoader(this.getClass().getResource(viewName));

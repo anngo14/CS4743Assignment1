@@ -53,5 +53,51 @@ public class AuthorTableGateway {
 		}
 		return author;
 	}
+	public void saveAuthor(Author author)
+	{
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "INSERT INTO Author (first_name, last_name, dob, gender, web_site) VALUES(?,?,?,?,?)";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, author.getFirstName());
+			preparedStatement.setString(2, author.getLastName());
+			preparedStatement.setDate(3, author.getDateOfBirth());
+			preparedStatement.setString(4, author.getGender()+" ");
+			preparedStatement.setString(5, author.getWebSite());
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public int getAuthorId(Author author)
+	{
+		PreparedStatement preparedStatement = null;
+		int lid = -1;
+		try {
+			String query = "SELECT id FROM Author WHERE first_name = ? AND last_name = ? AND web_site = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, author.getFirstName());
+			preparedStatement.setString(2, author.getLastName());
+			preparedStatement.setString(3, author.getWebSite());
+			
+			ResultSet result = preparedStatement.executeQuery();
+			while(result.next()) {
+				lid = result.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lid;
+	}
+	public Connection getConnection()
+	{
+		return connection;
+	}
+	
+	public void setConnection(Connection connection)
+	{
+		this.connection = connection;
+	}
 	
 }

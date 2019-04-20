@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="27.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author Details">
+         <font>
+            <Font name="System Bold Italic" size="48.0" />
+         </font>
+      </Text>
+      <Text layoutX="56.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="56.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="693.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="56.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Website:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="87.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="517.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Royalty:" wrappingWidth="124.505859375">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="firstName" layoutX="246.0" layoutY="187.0" prefHeight="53.0" prefWidth="435.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lastName" layoutX="244.0" layoutY="290.0" prefHeight="53.0" prefWidth="435.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="gender" layoutX="827.0" layoutY="187.0" prefHeight="53.0" prefWidth="114.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="website" layoutX="200.0" layoutY="502.0" prefHeight="53.0" prefWidth="744.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="dob" layoutX="302.0" layoutY="396.0" prefHeight="53.0" prefWidth="189.0" promptText="YYYY-MM-DD">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="royalty" layoutX="652.0" layoutY="396.0" prefHeight="53.0" prefWidth="189.0" promptText="x100000">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Button fx:id="saveButton" layoutX="870.0" layoutY="723.0" mnemonicParsing="false" onAction="#saveAuthor" prefHeight="48.0" prefWidth="95.0" text="Save">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="770.0" layoutY="723.0" mnemonicParsing="false" onAction="#cancelSave" text="Cancel">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

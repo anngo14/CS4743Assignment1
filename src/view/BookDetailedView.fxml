@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -7,37 +8,37 @@
 
 <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="43.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:">
+      <Text layoutX="40.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="39.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summary:">
+      <Text layoutX="40.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summary:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="542.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:">
+      <Text layoutX="45.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="48.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
+      <Text layoutX="542.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <TextArea fx:id="bookSummary" layoutX="48.0" layoutY="336.0" prefHeight="344.0" prefWidth="905.0">
+      <TextArea fx:id="bookSummary" layoutX="48.0" layoutY="211.0" prefHeight="182.0" prefWidth="905.0">
          <font>
             <Font size="26.0" />
          </font>
       </TextArea>
-      <TextField fx:id="bookTitle" layoutX="129.0" layoutY="23.0" prefHeight="56.0" prefWidth="370.0">
+      <TextField fx:id="bookTitle" layoutX="129.0" layoutY="23.0" prefHeight="56.0" prefWidth="398.0">
          <font>
             <Font size="26.0" />
          </font>
       </TextField>
-      <TextField fx:id="bookISBN" layoutX="140.0" layoutY="148.0" prefHeight="56.0" prefWidth="361.0">
+      <TextField fx:id="bookISBN" layoutX="636.0" layoutY="23.0" prefHeight="56.0" prefWidth="320.0">
          <font>
             <Font size="26.0" />
          </font>
@@ -47,16 +48,40 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <ComboBox fx:id="yearPick" layoutX="626.0" layoutY="21.0" prefHeight="56.0" prefWidth="327.0" promptText="Year Published" />
-      <Text layoutX="542.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publisher:">
+      <ComboBox fx:id="yearPick" layoutX="129.0" layoutY="96.0" prefHeight="56.0" prefWidth="75.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></ComboBox>
+      <Text layoutX="220.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publisher:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <ComboBox fx:id="publisher" layoutX="703.0" layoutY="150.0" prefHeight="56.0" prefWidth="256.0" promptText="Publisher" />
+      <ComboBox fx:id="publisher" layoutX="382.0" layoutY="97.0" prefHeight="56.0" prefWidth="154.0" />
       <Button fx:id="audit" layoutX="45.0" layoutY="704.0" mnemonicParsing="false" onAction="#showAudit" prefHeight="60.0" prefWidth="175.0" text="Audit Trail">
          <font>
             <Font size="28.0" />
+         </font>
+      </Button>
+      <Text layoutX="40.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Authors:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TableView fx:id="authorTable" layoutX="205.0" layoutY="415.0" prefHeight="229.0" prefWidth="627.0">
+        <columns>
+          <TableColumn fx:id="author" prefWidth="421.0" text="Author" />
+          <TableColumn fx:id="royalty" prefWidth="205.0" text="Royalty" />
+        </columns>
+      </TableView>
+      <Button fx:id="addAuthorButton" layoutX="489.0" layoutY="652.0" mnemonicParsing="false" onAction="#addAuthor" prefHeight="46.0" prefWidth="167.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-radius: 0;" text="+ Add Author">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="deleteButton" layoutX="665.0" layoutY="652.0" mnemonicParsing="false" onAction="#deleteAuthor" prefHeight="46.0" prefWidth="167.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-radius: 0;" text="- Delete">
+         <font>
+            <Font name="System Bold" size="20.0" />
          </font>
       </Button>
    </children>

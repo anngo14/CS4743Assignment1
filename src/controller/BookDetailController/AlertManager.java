@@ -49,4 +49,13 @@ public class AlertManager {
 				+ " book record");
 		alert.showAndWait();
 	}
+	
+	public static void displayErrorAlert(String message)
+	{
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("A Problem Has Occurred!");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 }

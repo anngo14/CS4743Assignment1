@@ -13,16 +13,26 @@ import controller.Controller;
 import controller.MainController;
 import controller.ViewType;
 import gateway.AuditTableGateway;
+import gateway.AuthorBookTableGateway;
+import gateway.AuthorTableGateway;
 import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
+import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.AuditTrailEntry;
+import model.Author;
+import model.AuthorBook;
 import model.Book;
 import model.Publisher;
 
@@ -35,6 +45,8 @@ public class BookDetailController implements Initializable, Controller {
 	private String lastSavedISBN;
 	private String lastSavedSummary;
 	private int lastSavedYear;
+	private AuthorBook selectedAuthorBook;
+	private ArrayList<AuthorBook> authorList = new ArrayList<AuthorBook>();
 
 	@FXML
 	TextField bookTitle;
@@ -50,6 +62,12 @@ public class BookDetailController implements Initializable, Controller {
 	ComboBox<Integer> yearPick;
 	@FXML
 	ComboBox<String> publisher;
+	@FXML
+	TableView<AuthorBook> authorTable;
+	@FXML
+	TableColumn<?,?> author;
+	@FXML
+	TableColumn<?,?> royalty;
 	
 	public BookDetailController(Book book) 
 	{
@@ -60,6 +78,7 @@ public class BookDetailController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		
 		if(book.isNewBook()) {
 			audit.setDisable(true);
 			audit.setOpacity(0.5);
@@ -86,10 +105,25 @@ public class BookDetailController implements Initializable, Controller {
 			publisherNames.add(p.getName());
 		}
 		publisher.getItems().addAll(publisherNames);
+		authorList = BookTableGateway.getInstance().getAuthorsForBook(book);
 		
 		updateLastSavedBookInfoValues();
+		initializeTable(authorList);
 	}
 	
+	public void initializeTable(ArrayList<AuthorBook> list)
+	{
+		author.setCellValueFactory(new PropertyValueFactory<>("AuthorName"));
+		royalty.setCellValueFactory(new PropertyValueFactory<>("Royalty"));
+		authorTable.setItems(FXCollections.observableArrayList(list));
+		authorTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+					selectedAuthorBook = (AuthorBook) authorTable.getSelectionModel().getSelectedItem();
+				}
+			}
+		});
+	}
 	public void updateLastSavedBookInfoValues()
 	{
 		lastSavedTitle = bookTitle.getText();
@@ -159,4 +193,23 @@ public class BookDetailController implements Initializable, Controller {
 		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book));
 	}
 	
+	public void addAuthor()
+	{
+		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book));
+	}
+	
+	public void deleteAuthor()
+	{
+		if(selectedAuthorBook == null)
+		{
+			AlertManager.displayErrorAlert("No Author Selected to Delete");
+		}
+		else if (selectedAuthorBook != null)
+		{
+			AuthorBookTableGateway.getInstance().deleteAuthorBook(selectedAuthorBook.getAuthor().getId(), selectedAuthorBook.getBook().getId());
+			authorList = BookTableGateway.getInstance().getAuthorsForBook(book);
+			initializeTable(authorList);
+
+		}
+	}
 }
