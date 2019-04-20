@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.sql.Connection;
 import controller.MainController;
+import gateway.AuditTableGateway;
 import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 import javafx.application.Application;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	
-	// CS 4743 Assignment 1 by Richard Azille, Andrew Ngo
+	// CS 4743 Assignment 3 by Richard Azille, Andrew Ngo
 	
 	private static final String DB_URL = "jdbc:mysql://easel2.fulgentcorp.com/epg755";
 	private static final String DB_USER = "epg755";
@@ -60,6 +61,7 @@ public class Main extends Application{
 		Connection connection = establishDataSource().getConnection();
 		BookTableGateway.getInstance().setConnection(connection);
 		PublisherTableGateway.getInstance().setConnection(connection);
+		AuditTableGateway.getInstance().setConnection(connection);
 	}
 	
 	public MysqlDataSource establishDataSource()
@@ -78,6 +80,7 @@ public class Main extends Application{
 		logger.info("closing connection...");
 		BookTableGateway.getInstance().getConnection().close();
 		PublisherTableGateway.getInstance().getConnection().close();
+		AuditTableGateway.getInstance().getConnection().close();
 	}
 
 }

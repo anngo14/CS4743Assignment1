@@ -6,11 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.BookDetailController.AlertManager;
+import model.AuditTrailEntry;
+import model.Author;
+import model.AuthorBook;
 import model.Book;
 
 public class BookTableGateway {
@@ -30,6 +34,32 @@ public class BookTableGateway {
 			instance = new BookTableGateway();
 		}
 		return instance;
+	}
+	
+	public Book getBook(int bookId)
+	{
+		Book book = new Book();
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT * FROM Books WHERE id = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, bookId);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				book = new Book(resultSet.getString("title")
+						, resultSet.getString("isbn")
+						, resultSet.getString("summary")
+						, resultSet.getInt("year_published")
+						, resultSet.getTimestamp("last_modified").toLocalDateTime()
+						, resultSet.getInt("id")
+						, resultSet.getInt("publisher_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return book;
 	}
 	
 	public ArrayList<Book> getBooks()
@@ -56,6 +86,28 @@ public class BookTableGateway {
 			e.printStackTrace();
 		}
 		return books;
+	}
+	
+	public ArrayList<AuthorBook> getAuthorsForBook(Book book) {
+		ArrayList<AuthorBook> authorBooks = new ArrayList<AuthorBook>();
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT * FROM author_book WHERE book_id = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, book.getId());
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				int authorId = resultSet.getInt("author_id");
+				int royalty = resultSet.getInt("royalty");
+				Author author = AuthorTableGateway.getInstance().getAuthor(authorId);
+				authorBooks.add(new AuthorBook(author, book, royalty, false));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return authorBooks;
 	}
 	
 	public void updateBookRecord(Book book) throws SQLException
@@ -150,14 +202,15 @@ public class BookTableGateway {
 		
 		return title;
 	}
-	public int getBookId(String title)
+	public int getBookId(Book book)
 	{
 		int id = -1;
 		PreparedStatement statement = null;
 		try {
-			String query = "SELECT id FROM Books where title = ?";
+			String query = "SELECT id FROM Books where title = ? AND isbn = ?";
 			statement = connection.prepareStatement(query);
-			statement.setString(1,  title);
+			statement.setString(1, book.getTitle());
+			statement.setString(2, book.getISBN());
 			
 			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next())
@@ -169,6 +222,55 @@ public class BookTableGateway {
 			e.printStackTrace();
 		}
 		return id;
+	}
+	public Book getOriginal(Book book)
+	{
+		Book original = new Book();
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT * FROM Books where id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, book.getId());
+			
+			ResultSet resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				original = new Book(resultSet.getString("title")
+						, resultSet.getString("isbn")
+						, resultSet.getString("summary")
+						, resultSet.getInt("year_published")
+						, resultSet.getTimestamp("last_modified").toLocalDateTime()
+						, resultSet.getInt("id")
+						, resultSet.getInt("publisher_id"));
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return original;
+	}
+	public ArrayList<AuditTrailEntry> getSpecificAuditTrail(Book book)
+	{
+		ArrayList<AuditTrailEntry> trail = new ArrayList<AuditTrailEntry>();
+		PreparedStatement statement = null;
+		try {
+			String query = "SELECT * FROM book_audit_trail WHERE book_id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, book.getId());
+			
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next())
+			{ 
+				Date date = resultSet.getTimestamp("date_added");
+				trail.add(new AuditTrailEntry(resultSet.getInt("id")
+						, date
+						, resultSet.getString("entry_msg")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return trail;
 	}
 	public Connection getConnection()
 	{

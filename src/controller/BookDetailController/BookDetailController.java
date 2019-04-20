@@ -17,6 +17,7 @@ import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -29,6 +30,7 @@ public class BookDetailController implements Initializable, Controller {
 	
 	private static Logger logger = LogManager.getLogger();
 	private Book book;
+	private Book bookOriginal;
 	private String lastSavedTitle;
 	private String lastSavedISBN;
 	private String lastSavedSummary;
@@ -42,6 +44,8 @@ public class BookDetailController implements Initializable, Controller {
 	TextArea bookSummary;
 	@FXML
 	AnchorPane content;
+	@FXML
+	Button audit;
 	@FXML 
 	ComboBox<Integer> yearPick;
 	@FXML
@@ -50,17 +54,23 @@ public class BookDetailController implements Initializable, Controller {
 	public BookDetailController(Book book) 
 	{
 		this.book = book;
+		this.bookOriginal = this.book;
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		if(book.isNewBook()) {
+			audit.setDisable(true);
+			audit.setOpacity(0.5);
+		}
+		
 		bookTitle.setText(book.getTitle());
 		bookISBN.setText(book.getISBN());
 		bookSummary.setText(book.getSummary());
 		yearPick.setValue(book.getYearPublished());
 		publisher.setValue(PublisherTableGateway.getInstance().getPublisherName(book.getPublisherId()));
-		
+
 		ArrayList<Integer> years = new ArrayList<Integer>();
 		ArrayList<Publisher> publisherList = new ArrayList<Publisher>();
 		ArrayList<String> publisherNames = new ArrayList<String>();
@@ -103,10 +113,11 @@ public class BookDetailController implements Initializable, Controller {
 		
 		if(book.isNewBook()) {
 			BookTableGateway.getInstance().insertBookRecord(book);
+			int id = BookTableGateway.getInstance().getBookId(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
 			trail.setMessage("Book Added");
-			System.out.println(trail.toString());
-			//AuditTableGateway.getInstance().insertAudit(trail, id);
+			
+			AuditTableGateway.getInstance().insertAudit(trail, id);
 		} else {
 			updateBookRecord(book);
 		}
@@ -117,13 +128,16 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void updateBookRecord(Book book) {
 		try {
+			this.bookOriginal = BookTableGateway.getInstance().getOriginal(book);
 			BookTableGateway.getInstance().updateBookRecord(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
-			trail.setMessage(book.diffBook(this.book, book));
-			System.out.println(trail.toString());
+			String message = book.diffBook(this.bookOriginal, book);
+			trail.setMessage(message);
 
-			System.out.println(book.diffBook(this.book, book));
-			//AuditTableGateway.getInstance().insertAudit(trail, book.getId());
+			if(message.compareTo("") != 0)
+			{
+				AuditTableGateway.getInstance().insertAudit(trail, book.getId());
+			}
 		} catch (SQLException e) {
 			AlertManager.displaySQLExceptionAlert("Unable to update record: " + book.toString());
 		}
@@ -138,6 +152,11 @@ public class BookDetailController implements Initializable, Controller {
 			return false;
 		}
 		return true;
+	}
+	
+	public void showAudit()
+	{
+		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book));
 	}
 	
 }

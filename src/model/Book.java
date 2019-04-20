@@ -1,8 +1,10 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import gateway.BookTableGateway;
 import gateway.PublisherTableGateway;
 
 public class Book {
@@ -79,6 +81,17 @@ public class Book {
 		}
 		return diff;
 	}
+	
+	public ArrayList<AuthorBook> getAuthors() {
+		ArrayList<AuthorBook> authorBooks = new ArrayList<>();
+		try {
+			BookTableGateway.getInstance().getAuthorsForBook(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return authorBooks;
+	}
+	
 	public boolean isNewBook()
 	{
 		return getId() == -1;
@@ -117,7 +130,12 @@ public class Book {
 	{
 		return publisher_id;
 	}
-	
+	public ArrayList<AuditTrailEntry> getAuditTrail()
+	{
+		ArrayList<AuditTrailEntry> auditTrail = new ArrayList<AuditTrailEntry>();
+		auditTrail = BookTableGateway.getInstance().getSpecificAuditTrail(this);
+		return auditTrail;
+	}
 	public void setTitle(String title) 
 	{
 		this.title = title;
@@ -151,7 +169,6 @@ public class Book {
 	{
 		this.publisher_id = pId;
 	}
-	
 	public String toString() 
 	{
 		StringBuilder bookInfo = new StringBuilder();
