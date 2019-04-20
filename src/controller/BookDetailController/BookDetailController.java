@@ -120,6 +120,9 @@ public class BookDetailController implements Initializable, Controller {
 			public void handle(MouseEvent event) {
 				 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
 					selectedAuthorBook = (AuthorBook) authorTable.getSelectionModel().getSelectedItem();
+				} else if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					selectedAuthorBook = (AuthorBook) authorTable.getSelectionModel().getSelectedItem();
+					updateAuthorBook(selectedAuthorBook);
 				}
 			}
 		});
@@ -156,7 +159,7 @@ public class BookDetailController implements Initializable, Controller {
 			updateBookRecord(book);
 		}
 		updateLastSavedBookInfoValues();
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
 		logger.info("Book entry saved: " + book.getTitle());	
 	}
 	
@@ -190,12 +193,12 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void showAudit()
 	{
-		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book));
+		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book), Optional.empty());
 	}
 	
 	public void addAuthor()
 	{
-		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book));
+		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(new AuthorBook(book)));
 	}
 	
 	public void deleteAuthor()
@@ -211,5 +214,10 @@ public class BookDetailController implements Initializable, Controller {
 			initializeTable(authorList);
 
 		}
+	}
+	
+	public void updateAuthorBook(AuthorBook authorBook)
+	{
+		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(authorBook));
 	}
 }

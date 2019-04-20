@@ -70,6 +70,26 @@ public class AuthorTableGateway {
 			e.printStackTrace();
 		}
 	}
+	public void updateAuthor(Author author)
+	{
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "UPDATE Author SET first_name = ?, last_name = ?, dob = ?, gender = ?, web_site = ? WHERE id = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, author.getFirstName());
+			preparedStatement.setString(2, author.getLastName());
+			preparedStatement.setDate(3, author.getDateOfBirth());
+			preparedStatement.setString(4, author.getGender()+" ");
+			preparedStatement.setString(5, author.getWebSite());
+			preparedStatement.setInt(6, author.getId());
+			
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public int getAuthorId(Author author)
 	{
 		PreparedStatement preparedStatement = null;

@@ -9,7 +9,12 @@ public class AuthorBook {
 	public AuthorBook() {
 		
 	}
-	
+	public AuthorBook(Book book)
+	{
+		this.book = book;
+		author = new Author();
+		
+	}
 	public AuthorBook(Author author, Book book, int royalty) {
 		this.author = author;
 		this.book = book;

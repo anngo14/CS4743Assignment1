@@ -82,11 +82,11 @@ public class AuthorBookTableGateway {
 			e.printStackTrace();
 		}
 	}
-	public void updateAuthorBook(Author author, Book book, int royalty)
+	public void updateAuthorBook(Author author, Book book, double royalty)
 	{
 		PreparedStatement preparedStatement = null;
 		try {
-			String query = "UPDATE author_book SET royalty = ?, WHERE author_id = ? AND book_id = ?";
+			String query = "UPDATE author_book SET royalty = ? WHERE author_id = ? AND book_id = ?";
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setDouble(1, royalty);
 			preparedStatement.setInt(2, author.getId());

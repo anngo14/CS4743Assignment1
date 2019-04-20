@@ -51,7 +51,7 @@ public class AuditTrailController implements Initializable, Controller {
 	
 	public void backButton()
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(this.book));
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(this.book), Optional.empty());
 	}
 
 }

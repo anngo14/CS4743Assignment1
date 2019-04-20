@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import model.AuthorBook;
 import model.Book;
 
 public class MainController {
@@ -46,13 +47,13 @@ public class MainController {
 	void changeView(ActionEvent event) 
 	{
 		if (event.getSource() == bookList) {
-			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
+			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
 		} else if (event.getSource() == addBook) {
-			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()));
+			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()), Optional.empty());
 		} 
 	}
 	
-	public void changeView(ViewType viewType, Optional<Book> book) 
+	public void changeView(ViewType viewType, Optional<Book> book, Optional<AuthorBook> authorBook) 
 	{
 		if (!isViewChangeAuthorized())
 		{
@@ -76,7 +77,7 @@ public class MainController {
 				break;
 			case AUTHOR_DETAIL_VIEW:
 				viewName = "/view/AuthorDetailView.fxml";
-				controller = new AuthorDetailController(book.get());
+				controller = new AuthorDetailController(book.get(), authorBook.get());
 				break;
 		}
 		try {
@@ -89,7 +90,7 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private boolean isViewChangeAuthorized()
 	{
 		if (borderPane.getCenter().getId() != null

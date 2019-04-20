@@ -67,7 +67,7 @@ public class BookListController implements Initializable, Controller {
 	
 	private void handleDoubleClick(Book selectedBook) 
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook));
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
 	}
 	
 	@FXML
@@ -77,7 +77,7 @@ public class BookListController implements Initializable, Controller {
 			return;
 		AuditTableGateway.getInstance().deleteAudit(selectedBook);
 		BookTableGateway.getInstance().deleteBook(selectedBook);
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
 		logger.info("Book record deleted: " + selectedBook.getTitle());
 	}
 

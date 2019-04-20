@@ -15,7 +15,7 @@ public class Author {
 	private final String DEFAULT_FIRST_NAME = "";
 	private final String DEFAULT_LAST_NAME = "";
 	private final LocalDate DEFAULT_DOB = LocalDate.now();
-	private final Character DEFAULT_GENDER = null;
+	private final Character DEFAULT_GENDER = '\0';
 	
 	public Author() {
 		this.id = DEFAULT_ID;
