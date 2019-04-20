@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import gateway.AuditTableGateway;
 import gateway.AuthorBookTableGateway;
 import gateway.AuthorTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import model.AuditTrailEntry;
 import model.Author;
 import model.AuthorBook;
 import model.Book;
@@ -76,6 +78,10 @@ public class AuthorDetailController implements Initializable, Controller{
 		else
 		{
 			AuthorTableGateway.getInstance().saveAuthor(temp);
+			AuditTrailEntry audit = new AuditTrailEntry();
+			audit.setMessage("New Author Added");
+			AuditTableGateway.getInstance().insertAudit(audit, selectedBook.getId());
+
 			int id = AuthorTableGateway.getInstance().getAuthorId(temp);
 			temp.setId(id);
 		}
@@ -85,9 +91,16 @@ public class AuthorDetailController implements Initializable, Controller{
 		}
 		else
 		{
+			if(selectedABook.getRoyalty() != (Double.parseDouble(royal) * 100000))
+			{
+				AuditTrailEntry audit = new AuditTrailEntry();
+				audit.setMessage("Royalty Changed");
+				AuditTableGateway.getInstance().insertAudit(audit, selectedBook.getId());
+			}
+			
 			AuthorBookTableGateway.getInstance().updateAuthorBook(temp, selectedBook, Double.parseDouble(royal));
 		}	
-		
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
 	}
 	public void cancelSave()
 	{

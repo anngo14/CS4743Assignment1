@@ -211,6 +211,9 @@ public class BookDetailController implements Initializable, Controller {
 		{
 			AuthorBookTableGateway.getInstance().deleteAuthorBook(selectedAuthorBook.getAuthor().getId(), selectedAuthorBook.getBook().getId());
 			authorList = BookTableGateway.getInstance().getAuthorsForBook(book);
+			AuditTrailEntry audit = new AuditTrailEntry();
+			audit.setMessage("Author Deleted From " + book.getTitle());
+			AuditTableGateway.getInstance().insertAudit(audit, book.getId());
 			initializeTable(authorList);
 
 		}

@@ -23,7 +23,7 @@ public class Author {
 		this.lastName = DEFAULT_LAST_NAME;
 		this.dateOfBirth = DEFAULT_DOB;
 		this.gender = DEFAULT_GENDER;
-		this.webSite = null;
+		this.webSite = "";
 	}
 	
 	public Author(int id, String firstName, String lastName, Date dateOfBirth, Character gender) {
@@ -32,7 +32,7 @@ public class Author {
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth.toLocalDate();
 		this.gender = gender;
-		this.webSite = null;
+		this.webSite = "";
 	}
 	
 	public Author(int id, String firstName, String lastName, Date dateOfBirth, Character gender, String webSite) {
