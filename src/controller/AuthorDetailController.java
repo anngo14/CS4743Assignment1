@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import controller.BookDetailController.AlertManager;
 import gateway.AuditTableGateway;
 import gateway.AuthorBookTableGateway;
 import gateway.AuthorTableGateway;
@@ -56,14 +57,16 @@ public class AuthorDetailController implements Initializable, Controller{
 	}
 	public void saveAuthor() throws ParseException
 	{
-		
+		if (!isAuthorValid()) {
+			return;
+		}
 		String first = firstName.getText();
 		String last = lastName.getText();
 		String date = dob.getText();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date d1 = sdf.parse(date);
 		java.sql.Date sqlDate = new java.sql.Date(d1.getTime());
-		String gen = gender.getText();
+		String gen = gender.getText().toUpperCase();
 		char[] genChar = gen.toCharArray();
 		String royal = royalty.getText();
 		String web = website.getText();
@@ -77,9 +80,11 @@ public class AuthorDetailController implements Initializable, Controller{
 		}
 		else
 		{
-			AuthorTableGateway.getInstance().saveAuthor(temp);
+			if (!AuthorTableGateway.getInstance().authorExistsInAuthorTable(temp)) {
+				AuthorTableGateway.getInstance().saveAuthor(temp);
+			}
 			AuditTrailEntry audit = new AuditTrailEntry();
-			audit.setMessage("New Author Added");
+			audit.setMessage("New Author Added for " + selectedBook.getTitle());
 			AuditTableGateway.getInstance().insertAudit(audit, selectedBook.getId());
 
 			int id = AuthorTableGateway.getInstance().getAuthorId(temp);
@@ -102,6 +107,21 @@ public class AuthorDetailController implements Initializable, Controller{
 		}	
 		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
 	}
+	
+	public boolean isAuthorValid() {
+		if (firstName.getText().length() == 0) {
+			AlertManager.displayAuthorValidationAlert("Missing First Name");
+			return false;
+		} else if (lastName.getText().length() == 0) {
+			AlertManager.displayAuthorValidationAlert("Missing Last Name");
+			return false;
+		} else if (gender.getText().length() == 0) {
+			AlertManager.displayAuthorValidationAlert("Missing gender");
+			return false;
+		}
+		return true;
+	}
+	
 	public void cancelSave()
 	{
 		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());

@@ -153,13 +153,13 @@ public class BookDetailController implements Initializable, Controller {
 			int id = BookTableGateway.getInstance().getBookId(book);
 			AuditTrailEntry trail = new AuditTrailEntry();
 			trail.setMessage("Book Added");
-			
+			book.setId(BookTableGateway.getInstance().getBookId(book));
 			AuditTableGateway.getInstance().insertAudit(trail, id);
 		} else {
 			updateBookRecord(book);
 		}
 		updateLastSavedBookInfoValues();
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
+		// MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
 		logger.info("Book entry saved: " + book.getTitle());	
 	}
 	

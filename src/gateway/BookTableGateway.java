@@ -170,6 +170,7 @@ public class BookTableGateway {
 	}
 	
 	public void deleteBook(Book book) {
+		AuthorBookTableGateway.getInstance().deleteAuthorBooksForBook(book.getId());
 		PreparedStatement statement = null;
 		try {
 			String query = "DELETE FROM Books WHERE id = ?";

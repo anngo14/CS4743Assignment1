@@ -32,6 +32,7 @@ public class AuditTableGateway {
 	}
 	public void insertAudit(AuditTrailEntry audit, int bookId)
 	{
+		System.out.println(audit.getMessage() + ": " + bookId);
 		PreparedStatement statement = null;
 		try {
 			String query = "INSERT INTO book_audit_trail (book_id, entry_msg) VALUES (?,?)";

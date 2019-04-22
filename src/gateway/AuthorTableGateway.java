@@ -53,6 +53,32 @@ public class AuthorTableGateway {
 		}
 		return author;
 	}
+	
+	public ArrayList<Author> getAuthors()
+	{
+		ArrayList<Author> authors = new ArrayList<Author>();
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT * FROM Author WHERE id >= ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, 0);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				authors.add(new Author(resultSet.getInt("id")
+						, resultSet.getString("first_name")
+						, resultSet.getString("last_name")
+						, resultSet.getDate("dob")
+						, resultSet.getString("gender").charAt(0)
+						, resultSet.getString("web_site")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return authors;
+	}
+	
 	public void saveAuthor(Author author)
 	{
 		PreparedStatement preparedStatement = null;
@@ -70,6 +96,21 @@ public class AuthorTableGateway {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean authorExistsInAuthorTable(Author author) {
+		ArrayList<Author> authors = getAuthors();
+		for (Author a : authors) {
+			if (author.getFirstName().equals(a.getFirstName())
+					&& author.getLastName().equals(a.getLastName())
+					&& author.getDateOfBirth().equals(a.getDateOfBirth())
+					&& author.getGender().equals(a.getGender())
+					&& author.getWebSite().equals(a.getWebSite())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void updateAuthor(Author author)
 	{
 		PreparedStatement preparedStatement = null;

@@ -18,6 +18,15 @@ public class AlertManager {
 		alert.showAndWait();
 	}
 	
+	public static void displayAuthorValidationAlert(String message) 
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Unable to Save");
+		alert.setHeaderText("Invalid Author Property");
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+	
 	public static void displaySQLExceptionAlert(String message) 
 	{
 		Alert alert = new Alert(AlertType.INFORMATION);

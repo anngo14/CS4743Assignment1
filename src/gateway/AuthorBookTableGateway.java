@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import model.Author;
 import model.AuthorBook;
 import model.Book;
@@ -67,8 +69,22 @@ public class AuthorBookTableGateway {
 		}
 	}
 	
+	public void deleteAuthorBooksForBook(int bookId) {
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "DELETE FROM author_book WHERE book_id = ?";
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, bookId);
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void saveAuthorBook(Author author, Book book, double royalty)
 	{
+		System.out.println("Author ID for " + author.getFirstName() + " is " + author.getId());
 		PreparedStatement preparedStatement = null;
 		try {
 			String query = "INSERT INTO author_book (author_id, book_id, royalty) VALUES (?,?,?)";
@@ -79,7 +95,7 @@ public class AuthorBookTableGateway {
 			
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.info("AuthorBook record for Author ID and Book ID already exists");
 		}
 	}
 	public void updateAuthorBook(Author author, Book book, double royalty)
