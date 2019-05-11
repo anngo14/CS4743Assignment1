@@ -18,7 +18,7 @@ public class Book {
 	private int publisher_id;
 	
 	private final String DEFAULT_TITLE = "";
-	private final String DEFAULT_ISBN = "";
+	private final String DEFAULT_ISBN = "ISBN-0000-0000";
 	private final String DEFAULT_SUMMARY = "";
 	private final int DEFAULT_YEAR_PUBLISHED = Calendar.getInstance().get(Calendar.YEAR);
 	private final int DEFAULT_ID = -1;

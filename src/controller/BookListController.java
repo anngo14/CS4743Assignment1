@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,6 +30,8 @@ public class BookListController implements Initializable, Controller {
 	private static Logger logger = LogManager.getLogger();
 	private ArrayList<Book> bookList;
 	private Book selectedBook;
+	private int currentPageStartRecordNumber;
+	private final int MAX_BOOK_RECORDS_PER_PAGE = 50;
 	
 	@FXML
 	TableView<Book> bookTable;
@@ -40,6 +43,8 @@ public class BookListController implements Initializable, Controller {
 	Button deleteButton;
 	@FXML
 	TextField userSelectedBook;
+	@FXML
+	Label fetchedRecords;
 	
 	public BookListController(ArrayList<Book> bookList) {
 		this.bookList = bookList;
@@ -63,6 +68,9 @@ public class BookListController implements Initializable, Controller {
 				}
 			}
 		});
+		currentPageStartRecordNumber = 1;
+		fetchedRecords.setText("Fetched records " + currentPageStartRecordNumber + " to " + bookList.size() + " out of " 
+				+ BookTableGateway.getInstance().getCountOfBooks());
 	}
 	
 	private void handleDoubleClick(Book selectedBook) 
@@ -79,6 +87,60 @@ public class BookListController implements Initializable, Controller {
 		BookTableGateway.getInstance().deleteBook(selectedBook);
 		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
 		logger.info("Book record deleted: " + selectedBook.getTitle());
+	}
+	
+	@FXML
+	private void firstPage(ActionEvent event)
+	{
+		bookList = BookTableGateway.getInstance().getBooks(1);
+		bookTable.setItems(FXCollections.observableArrayList(bookList));
+		
+		currentPageStartRecordNumber = 1;
+		fetchedRecords.setText("Fetched records " + currentPageStartRecordNumber + " to " + bookList.size() + " out of " 
+				+ BookTableGateway.getInstance().getCountOfBooks());
+	}
+	
+	@FXML
+	private void previousPage(ActionEvent event)
+	{
+		if (currentPageStartRecordNumber == 1)
+			return;
+		int previousPageLastId = bookList.get(0).getId() - 1;
+		bookList = BookTableGateway.getInstance().getPreviousBooks(previousPageLastId);
+		bookTable.setItems(FXCollections.observableArrayList(bookList));
+		
+		currentPageStartRecordNumber -= MAX_BOOK_RECORDS_PER_PAGE;
+		int lastRecordNumber = currentPageStartRecordNumber + bookList.size() - 1;
+		fetchedRecords.setText("Fetched records " + currentPageStartRecordNumber + " to " + lastRecordNumber + " out of " 
+				+ BookTableGateway.getInstance().getCountOfBooks());
+	}
+	
+	@FXML
+	private void nextPage(ActionEvent event)
+	{
+		int nextPageStartingId = bookList.get(bookList.size() - 1).getId() + 1;
+		bookList = BookTableGateway.getInstance().getBooks(nextPageStartingId);
+		bookTable.setItems(FXCollections.observableArrayList(bookList));
+		
+		currentPageStartRecordNumber += MAX_BOOK_RECORDS_PER_PAGE;
+		int lastRecordNumber = currentPageStartRecordNumber + bookList.size() - 1;
+		fetchedRecords.setText("Fetched records " + currentPageStartRecordNumber + " to " + lastRecordNumber + " out of " 
+				+ BookTableGateway.getInstance().getCountOfBooks());
+	}
+	
+	@FXML
+	private void lastPage(ActionEvent event)
+	{
+		int lastBookRecordId = BookTableGateway.getInstance().getCountOfBooks();
+		if (currentPageStartRecordNumber + bookList.size() - 1 == lastBookRecordId)
+			return;
+		bookList = BookTableGateway.getInstance().getPreviousBooks(lastBookRecordId);
+		bookTable.setItems(FXCollections.observableArrayList(bookList));
+		
+		currentPageStartRecordNumber = lastBookRecordId - MAX_BOOK_RECORDS_PER_PAGE + 1;
+		int lastRecordNumber = lastBookRecordId;
+		fetchedRecords.setText("Fetched records " + currentPageStartRecordNumber + " to " + lastRecordNumber + " out of " 
+				+ BookTableGateway.getInstance().getCountOfBooks());
 	}
 
 }

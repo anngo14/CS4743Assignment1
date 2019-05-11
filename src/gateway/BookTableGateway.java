@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ public class BookTableGateway {
 	private static BookTableGateway instance = null;
 	private Connection connection;
 	private static Logger logger = LogManager.getLogger();
+	private static final int MAX_BOOK_RECORDS_PER_PAGE = 50;
 	public BookTableGateway()
 	{
 		
@@ -34,6 +36,16 @@ public class BookTableGateway {
 			instance = new BookTableGateway();
 		}
 		return instance;
+	}
+	
+	public void add100KBooks() {
+//		Random random = new Random();
+//		for (int i = 0; i < 98408; i++) {
+//			Book book = new Book();
+//			book.setTitle("book_" + (i + 1593));
+//			book.setPublisherId(random.nextInt(5) + 1);
+//			insertBookRecord(book);
+//		}
 	}
 	
 	public Book getBook(int bookId)
@@ -62,14 +74,14 @@ public class BookTableGateway {
 		return book;
 	}
 	
-	public ArrayList<Book> getBooks()
+	public ArrayList<Book> getBooks(int firstBookId)
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
 		PreparedStatement preparedStatement = null;
 		try {
-			String query = "SELECT * FROM Books WHERE id >= ?";
+			String query = "SELECT * FROM Books WHERE id >= ? LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, 0);
+			preparedStatement.setInt(1, firstBookId);
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next())
@@ -86,6 +98,65 @@ public class BookTableGateway {
 			e.printStackTrace();
 		}
 		return books;
+	}
+	
+	public ArrayList<Book> getPreviousBooks(int lastBookId)
+	{
+		ArrayList<Book> books = new ArrayList<Book>();
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT * FROM Books WHERE id <= ? ORDER BY id DESC LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, lastBookId);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				books.add(0, new Book(resultSet.getString("title")
+						, resultSet.getString("isbn")
+						, resultSet.getString("summary")
+						, resultSet.getInt("year_published")
+						, resultSet.getTimestamp("last_modified").toLocalDateTime()
+						, resultSet.getInt("id")
+						, resultSet.getInt("publisher_id")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return books;
+	}
+	
+	public int getLastBookId()
+	{
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT id FROM Books ORDER BY id DESC LIMIT 1";
+			preparedStatement = connection.prepareStatement(query);
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+			{ 
+				return resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int getCountOfBooks() {
+		PreparedStatement preparedStatement = null;
+		try {
+			String query = "SELECT COUNT(*) FROM Books";
+			preparedStatement = connection.prepareStatement(query);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				return resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 	public ArrayList<AuthorBook> getAuthorsForBook(Book book) {
@@ -203,6 +274,7 @@ public class BookTableGateway {
 		
 		return title;
 	}
+	
 	public int getBookId(Book book)
 	{
 		int id = -1;
@@ -224,6 +296,7 @@ public class BookTableGateway {
 		}
 		return id;
 	}
+	
 	public Book getOriginal(Book book)
 	{
 		Book original = new Book();
@@ -251,6 +324,7 @@ public class BookTableGateway {
 		
 		return original;
 	}
+	
 	public ArrayList<AuditTrailEntry> getSpecificAuditTrail(Book book)
 	{
 		ArrayList<AuditTrailEntry> trail = new ArrayList<AuditTrailEntry>();
@@ -273,6 +347,7 @@ public class BookTableGateway {
 		}
 		return trail;
 	}
+	
 	public Connection getConnection()
 	{
 		return connection;

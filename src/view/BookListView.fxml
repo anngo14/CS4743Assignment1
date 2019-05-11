@@ -22,5 +22,10 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <Label fx:id="fetchedRecords" layoutX="425.0" layoutY="641.0" text="Fetched records X to Y of Z" />
+      <Button fx:id="firstButton" layoutX="327.0" layoutY="455.0" mnemonicParsing="false" onAction="#firstPage" text="First" />
+      <Button fx:id="previousButton" layoutX="425.0" layoutY="455.0" mnemonicParsing="false" onAction="#previousPage" text="Previous" />
+      <Button fx:id="nextButton" layoutX="519.0" layoutY="455.0" mnemonicParsing="false" onAction="#nextPage" text="Next" />
+      <Button fx:id="lastButton" layoutX="605.0" layoutY="455.0" mnemonicParsing="false" onAction="#lastPage" text="Last" />
    </children>
 </AnchorPane>
