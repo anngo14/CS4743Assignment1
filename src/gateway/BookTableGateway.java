@@ -74,14 +74,15 @@ public class BookTableGateway {
 		return book;
 	}
 	
-	public ArrayList<Book> getBooks(int firstBookId)
+	public ArrayList<Book> getNextBooks(int firstBookId, String searchQuery)
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
 		PreparedStatement preparedStatement = null;
 		try {
-			String query = "SELECT * FROM Books WHERE id >= ? LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
+			String query = "SELECT * FROM Books WHERE id >= ?  AND title LIKE ? LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, firstBookId);
+			preparedStatement.setString(2, "%" + searchQuery + "%");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next())
@@ -100,14 +101,15 @@ public class BookTableGateway {
 		return books;
 	}
 	
-	public ArrayList<Book> getPreviousBooks(int lastBookId)
+	public ArrayList<Book> getPreviousBooks(int lastBookId, String searchQuery)
 	{
 		ArrayList<Book> books = new ArrayList<Book>();
 		PreparedStatement preparedStatement = null;
 		try {
-			String query = "SELECT * FROM Books WHERE id <= ? ORDER BY id DESC LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
+			String query = "SELECT * FROM Books WHERE id <= ? AND title LIKE ? ORDER BY id DESC LIMIT " + MAX_BOOK_RECORDS_PER_PAGE;
 			preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, lastBookId);
+			preparedStatement.setString(2, "%" + searchQuery + "%");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next())
@@ -144,11 +146,12 @@ public class BookTableGateway {
 		return -1;
 	}
 	
-	public int getCountOfBooks() {
+	public int getCountOfBooks(String searchQuery) {
 		PreparedStatement preparedStatement = null;
 		try {
-			String query = "SELECT COUNT(*) FROM Books";
+			String query = "SELECT COUNT(*) FROM Books WHERE title LIKE ?";
 			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, "%" + searchQuery + "%");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				return resultSet.getInt(1);

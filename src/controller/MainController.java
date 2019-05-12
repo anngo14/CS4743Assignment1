@@ -69,7 +69,7 @@ public class MainController {
 				break;
 			case BOOK_LIST_VIEW:
 				viewName = "/view/BookListView.fxml";
-				controller = new BookListController(BookTableGateway.getInstance().getBooks(1));
+				controller = new BookListController(BookTableGateway.getInstance().getNextBooks(1, ""));
 				break;
 			case AUDIT_TRAIL_VIEW:
 				viewName = "/view/AuditTrailView.fxml";
