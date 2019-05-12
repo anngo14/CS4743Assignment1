@@ -5,44 +5,62 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="bookTable" prefHeight="500.0" prefWidth="1000.0" AnchorPane.bottomAnchor="346.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TableView fx:id="bookTable" layoutY="89.0" prefHeight="431.0" prefWidth="650.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="89.0">
         <columns>
-          <TableColumn fx:id="title" prefWidth="999.0" style="-fx-alignment: CENTER-LEFT;" text="Book Title" />
+          <TableColumn fx:id="title" prefWidth="650.0" sortable="false" style="-fx-alignment: CENTER-LEFT;" text="Book Title" />
         </columns>
       </TableView>
-      <Button fx:id="deleteButton" layoutX="726.0" layoutY="497.0" mnemonicParsing="false" onAction="#deleteSelectedBook" text="Delete">
+      <Button fx:id="deleteButton" layoutX="509.0" layoutY="570.0" mnemonicParsing="false" onAction="#deleteSelectedBook" prefHeight="30.0" prefWidth="80.0" text="Delete">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font></Button>
-      <TextField fx:id="userSelectedBook" editable="false" layoutX="306.0" layoutY="495.0" prefHeight="39.0" prefWidth="394.0" />
-      <Text layoutX="161.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selected Book:" wrappingWidth="136.76165771484375">
+      <TextField fx:id="userSelectedBook" editable="false" layoutX="149.0" layoutY="570.0" prefHeight="30.0" prefWidth="350.0" />
+      <Label fx:id="fetchedRecords" alignment="CENTER" contentDisplay="CENTER" layoutX="149.0" layoutY="610.0" prefHeight="30.0" prefWidth="350.0" textAlignment="CENTER">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Label fx:id="fetchedRecords" layoutX="309.0" layoutY="593.0" prefHeight="17.0" prefWidth="394.0" text="Fetched records X to Y of Z" textAlignment="CENTER" />
-      <Button fx:id="firstButton" layoutX="327.0" layoutY="455.0" mnemonicParsing="false" onAction="#firstPage" text="First" />
-      <Button fx:id="previousButton" layoutX="425.0" layoutY="455.0" mnemonicParsing="false" onAction="#previousPage" text="Previous" />
-      <Button fx:id="nextButton" layoutX="519.0" layoutY="455.0" mnemonicParsing="false" onAction="#nextPage" text="Next" />
-      <Button fx:id="lastButton" layoutX="605.0" layoutY="455.0" mnemonicParsing="false" onAction="#lastPage" text="Last" />
-      <Label fx:id="searchStatus" layoutX="310.0" layoutY="564.0" prefHeight="17.0" prefWidth="394.0" text="Currently displaying search results for &quot;&quot;" textAlignment="CENTER" />
-      <TextField fx:id="searchField" layoutX="309.0" layoutY="643.0" prefHeight="39.0" prefWidth="394.0" />
-      <Text layoutX="94.0" layoutY="658.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter title to search for matches:" wrappingWidth="209.44134521484375">
+            <Font size="14.0" />
+         </font></Label>
+      <Button fx:id="firstButton" layoutX="149.0" layoutY="530.0" mnemonicParsing="false" onAction="#firstPage" prefHeight="30.0" prefWidth="80.0" text="First">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Button fx:id="searchButton" layoutX="724.0" layoutY="647.0" mnemonicParsing="false" onAction="#search" text="Search">
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="previousButton" layoutX="239.0" layoutY="530.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="30.0" prefWidth="80.0" text="Previous">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="nextButton" layoutX="329.0" layoutY="530.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="30.0" prefWidth="80.0" text="Next">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="lastButton" layoutX="419.0" layoutY="530.0" mnemonicParsing="false" onAction="#lastPage" prefHeight="30.0" prefWidth="80.0" text="Last">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Label fx:id="searchStatus" alignment="CENTER" contentDisplay="CENTER" layoutX="149.0" layoutY="50.0" prefHeight="30.0" prefWidth="350.0" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <TextField fx:id="searchField" alignment="CENTER" layoutX="110.0" layoutY="12.0" prefHeight="30.0" prefWidth="300.0" />
+      <Button fx:id="searchButton" layoutX="425.0" layoutY="12.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" prefWidth="75.0" text="Search">
+         <font>
+            <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="clearSearchButton" layoutX="448.0" layoutY="701.0" mnemonicParsing="false" onAction="#clearSearch" text="Clear Search">
+      <Button fx:id="clearSearchButton" layoutX="510.0" layoutY="12.0" mnemonicParsing="false" onAction="#clearSearch" prefHeight="30.0" prefWidth="120.0" text="Clear Search">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="fetchedRecords1" alignment="CENTER" contentDisplay="CENTER" layoutX="59.0" layoutY="570.0" prefHeight="30.0" prefWidth="80.0" text="Selected" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="fetchedRecords11" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="12.0" prefHeight="30.0" prefWidth="80.0" text="Book Title" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
