@@ -47,6 +47,7 @@ public class BookDetailController implements Initializable, Controller {
 	private int lastSavedYear;
 	private AuthorBook selectedAuthorBook;
 	private ArrayList<AuthorBook> authorList = new ArrayList<AuthorBook>();
+	private final int sessionID;
 
 	@FXML
 	TextField bookTitle;
@@ -58,6 +59,12 @@ public class BookDetailController implements Initializable, Controller {
 	AnchorPane content;
 	@FXML
 	Button audit;
+	@FXML
+	Button saveButton;
+	@FXML
+	Button deleteButton;
+	@FXML
+	Button addAuthorButton;
 	@FXML 
 	ComboBox<Integer> yearPick;
 	@FXML
@@ -69,16 +76,22 @@ public class BookDetailController implements Initializable, Controller {
 	@FXML
 	TableColumn<?,?> royalty;
 	
-	public BookDetailController(Book book) 
+	public BookDetailController(Book book, int id) 
 	{
 		this.book = book;
 		this.bookOriginal = this.book;
+		this.sessionID = id;
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-		
+		if(sessionID == 3)
+		{
+			saveButton.setDisable(true);
+			deleteButton.setDisable(true);
+			addAuthorButton.setDisable(true);
+		}
 		if(book.isNewBook()) {
 			audit.setDisable(true);
 			audit.setOpacity(0.5);
@@ -193,12 +206,12 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void showAudit()
 	{
-		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book), Optional.empty());
+		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book), Optional.empty(), Optional.of(sessionID));
 	}
 	
 	public void addAuthor()
 	{
-		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(new AuthorBook(book)));
+		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(new AuthorBook(book)), Optional.of(sessionID));
 	}
 	
 	public void deleteAuthor()
@@ -221,6 +234,6 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void updateAuthorBook(AuthorBook authorBook)
 	{
-		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(authorBook));
+		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(authorBook), Optional.of(sessionID));
 	}
 }

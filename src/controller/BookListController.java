@@ -33,6 +33,7 @@ public class BookListController implements Initializable, Controller {
 	private int currentPageStartRecordNumber;
 	private final int MAX_BOOK_RECORDS_PER_PAGE = 50;
 	private String currentSearch = "";
+	private final int sessionID;
 	
 	@FXML
 	TableView<Book> bookTable;
@@ -55,14 +56,19 @@ public class BookListController implements Initializable, Controller {
 	@FXML
 	Button clearSearchButton;
 	
-	public BookListController(ArrayList<Book> bookList) {
+	public BookListController(ArrayList<Book> bookList, int id) {
 		this.bookList = bookList;
 		this.selectedBook = null;
+		this.sessionID = id;
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
-	{			
+	{	
+		if(sessionID == 3 || sessionID == 2) 
+		{
+			deleteButton.setDisable(true);
+		}
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		bookTable.setItems(FXCollections.observableArrayList(bookList));
 		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -85,7 +91,7 @@ public class BookListController implements Initializable, Controller {
 	
 	private void handleDoubleClick(Book selectedBook) 
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
 	}
 	
 	@FXML
@@ -95,7 +101,7 @@ public class BookListController implements Initializable, Controller {
 			return;
 		AuditTableGateway.getInstance().deleteAudit(selectedBook);
 		BookTableGateway.getInstance().deleteBook(selectedBook);
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionID));
 		logger.info("Book record deleted: " + selectedBook.getTitle());
 	}
 	

@@ -1,6 +1,9 @@
 package model;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+import authenticate.AuthenticatorProc;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.net.URL;
@@ -66,6 +69,7 @@ public class Main extends Application{
 		AuditTableGateway.getInstance().setConnection(connection);
 		AuthorTableGateway.getInstance().setConnection(connection);
 		AuthorBookTableGateway.getInstance().setConnection(connection);
+		AuthenticatorProc.getInstance().setConnection(connection);
 	}
 	
 	public MysqlDataSource establishDataSource()
@@ -85,6 +89,9 @@ public class Main extends Application{
 		BookTableGateway.getInstance().getConnection().close();
 		PublisherTableGateway.getInstance().getConnection().close();
 		AuditTableGateway.getInstance().getConnection().close();
+		AuthorTableGateway.getInstance().getConnection().close();
+		AuthorBookTableGateway.getInstance().getConnection().close();
+		AuthenticatorProc.getInstance().getConnection().close();
 	}
 
 }

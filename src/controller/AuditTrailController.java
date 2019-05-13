@@ -22,6 +22,7 @@ public class AuditTrailController implements Initializable, Controller {
 
 	private ArrayList<AuditTrailEntry> auditList;
 	private Book book;
+	private int sessionID;
 	
 	@FXML
 	Button back;
@@ -51,7 +52,7 @@ public class AuditTrailController implements Initializable, Controller {
 	
 	public void backButton()
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(this.book), Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(this.book), Optional.empty(), Optional.of(sessionID));
 	}
 
 }

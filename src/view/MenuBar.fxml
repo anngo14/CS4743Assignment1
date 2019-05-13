@@ -9,6 +9,12 @@
    <top>
       <MenuBar prefHeight="25.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         <menus>
+            <Menu fx:id="userText" mnemonicParsing="false" text="User">
+              <items>
+                <MenuItem fx:id="login" mnemonicParsing="false" onAction="#loginAction" text="Login " />
+                  <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logoutAction" text="Logout" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Book">
             <items>
               <MenuItem fx:id="bookList" mnemonicParsing="false" onAction="#changeView" text="Book List" />

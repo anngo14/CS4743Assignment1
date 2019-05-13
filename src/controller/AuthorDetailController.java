@@ -13,6 +13,7 @@ import gateway.AuthorBookTableGateway;
 import gateway.AuthorTableGateway;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.AuditTrailEntry;
 import model.Author;
@@ -24,6 +25,7 @@ public class AuthorDetailController implements Initializable, Controller{
 	private AuthorBook selectedABook;
 	private Author selectedAuthor;
 	private Book selectedBook;
+	private final int sessionID;
 	
 	@FXML
 	TextField firstName;
@@ -37,16 +39,23 @@ public class AuthorDetailController implements Initializable, Controller{
 	TextField royalty;
 	@FXML
 	TextField website;
+	@FXML
+	Button saveButton;
 	
-	public AuthorDetailController(Book book, AuthorBook authorBook)
+	public AuthorDetailController(Book book, AuthorBook authorBook, int id)
 	{
 		selectedABook = authorBook;
 		selectedBook = book;
 		selectedAuthor = selectedABook.getAuthor();
+		this.sessionID = id;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		if(sessionID == 3)
+		{
+			saveButton.setDisable(true);
+		}
 		firstName.setText(selectedAuthor.getFirstName());
 		lastName.setText(selectedAuthor.getLastName());
 		dob.setText("" + selectedAuthor.getDateOfBirth());
@@ -105,7 +114,7 @@ public class AuthorDetailController implements Initializable, Controller{
 			
 			AuthorBookTableGateway.getInstance().updateAuthorBook(temp, selectedBook, Double.parseDouble(royal));
 		}	
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
 	}
 	
 	public boolean isAuthorValid() {
@@ -124,6 +133,6 @@ public class AuthorDetailController implements Initializable, Controller{
 	
 	public void cancelSave()
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty());
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
 	}
 }

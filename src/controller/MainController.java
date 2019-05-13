@@ -6,15 +6,25 @@ import java.util.Optional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import Cryptography.Sha;
+import authenticate.AuthenticatorProc;
+import authenticate.Authenticator;
+import authenticate.LoginDialog;
+import authenticate.LoginException;
 import controller.BookDetailController.AlertManager;
 import controller.BookDetailController.BookDetailController;
 import gateway.BookTableGateway;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Pair;
 import model.AuthorBook;
 import model.Book;
 
@@ -24,16 +34,27 @@ public class MainController {
 	private static MainController instance = null;
 	private BorderPane borderPane;
 	private Controller currentController = null;
-	
+	private Authenticator auth;
+
+	int sessionId;
+
 	@FXML
 	MenuItem bookList;
 	@FXML
 	MenuItem addBook;
 	@FXML
 	MenuItem quit;
+	@FXML
+	MenuItem login;
+	@FXML 
+	MenuItem logout;
+	@FXML
+	Menu userText;
 	
 	private MainController() {
+		auth = new AuthenticatorProc();
 		
+		sessionId = Authenticator.INVALID_SESSION;
 	}
 	
 	public static MainController getInstance() 
@@ -47,13 +68,13 @@ public class MainController {
 	void changeView(ActionEvent event) 
 	{
 		if (event.getSource() == bookList) {
-			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty());
+			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionId));
 		} else if (event.getSource() == addBook) {
-			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()), Optional.empty());
+			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()), Optional.empty(), Optional.of(sessionId));
 		} 
 	}
 	
-	public void changeView(ViewType viewType, Optional<Book> book, Optional<AuthorBook> authorBook) 
+	public void changeView(ViewType viewType, Optional<Book> book, Optional<AuthorBook> authorBook, Optional<Integer> session) 
 	{
 		if (!isViewChangeAuthorized())
 		{
@@ -65,11 +86,11 @@ public class MainController {
 		{
 			case BOOK_DETAILED_VIEW:
 				viewName = "/view/BookDetailedView.fxml";
-				controller = new BookDetailController(book.get());
+				controller = new BookDetailController(book.get(), session.get());
 				break;
 			case BOOK_LIST_VIEW:
 				viewName = "/view/BookListView.fxml";
-				controller = new BookListController(BookTableGateway.getInstance().getNextBooks(1, ""));
+				controller = new BookListController(BookTableGateway.getInstance().getNextBooks(1, ""), session.get());
 				break;
 			case AUDIT_TRAIL_VIEW:
 				viewName = "/view/AuditTrailView.fxml";
@@ -77,7 +98,7 @@ public class MainController {
 				break;
 			case AUTHOR_DETAIL_VIEW:
 				viewName = "/view/AuthorDetailView.fxml";
-				controller = new AuthorDetailController(book.get(), authorBook.get());
+				controller = new AuthorDetailController(book.get(), authorBook.get(), session.get());
 				break;
 		}
 		try {
@@ -135,9 +156,68 @@ public class MainController {
 		{
 			return;
 		}
-		System.exit(0);
+		Platform.exit();
 	}
 	
+	@FXML
+	public void loginAction()
+	{
+		Pair<String, String> creds = LoginDialog.showLoginDialog();
+		if(creds == null) 
+			return;
+		
+		String userName = creds.getKey();
+		String pw = creds.getValue();
+		
+		System.out.println("User = " + userName + "\n" + "Pass = " + pw + "\n");
+		String pwHash = Sha.sha256(pw);
+		
+		try {
+			sessionId = auth.loginSha256(userName, pwHash);
+		} catch (LoginException e)
+		{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.getButtonTypes().clear();
+			ButtonType buttonTypeOne = new ButtonType("OK");
+			alert.getButtonTypes().setAll(buttonTypeOne);
+			alert.setTitle("Login Failed");
+			alert.setHeaderText("The user name and password you provided do not match stored credentials.");
+			alert.showAndWait();
+
+			return;
+		}
+		updateGUI();
+	}
+	
+	@FXML
+	public void logoutAction()
+	{
+		sessionId = Authenticator.INVALID_SESSION;
+		updateGUI();
+	}
+	
+	public void updateGUI()
+	{
+		if(sessionId == Authenticator.INVALID_SESSION)
+		{
+			login.setDisable(false);
+			logout.setDisable(true);
+			addBook.setDisable(true);
+			bookList.setDisable(true);
+		}
+		else
+		{
+			login.setDisable(true);
+			logout.setDisable(false);
+			
+			if(sessionId == 3)
+			{
+				addBook.setDisable(true);
+			}
+		}
+		
+		//userText.setText(auth.getUserNameFromSessionId(sessionId));
+	}
 	public BorderPane getBorderPane() 
 	{
 		return borderPane;
@@ -146,6 +226,11 @@ public class MainController {
 	public void setBorderPane(BorderPane borderPane) 
 	{
 		this.borderPane = borderPane;
+	}
+	
+	public void initialize()
+	{
+		//updateGUI();
 	}
 	
 }
