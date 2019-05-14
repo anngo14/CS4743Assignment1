@@ -44,7 +44,7 @@ public class RecordValidator {
 	
 	private static boolean isIsbnValid(String isbn) 
 	{
-		if (isbn != null && isbn.length() <= 13) {
+		if (isbn != null && isbn.replaceAll("-", "").length() <= 13) {
 			return true;
 		}
 		AlertManager.displayValidationAlert("ISBN must be 13 characters or less");

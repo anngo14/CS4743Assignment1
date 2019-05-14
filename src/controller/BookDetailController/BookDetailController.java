@@ -87,12 +87,7 @@ public class BookDetailController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-		if(AuthenticatorProc.getInstance().hasAccess(sessionID, "view Books"))
-		{
-			saveButton.setDisable(true);
-			deleteButton.setDisable(true);
-			addAuthorButton.setDisable(true);
-		}
+		
 		if(book.isNewBook()) {
 			audit.setDisable(true);
 			audit.setOpacity(0.5);
@@ -120,6 +115,18 @@ public class BookDetailController implements Initializable, Controller {
 		}
 		publisher.getItems().addAll(publisherNames);
 		authorList = BookTableGateway.getInstance().getAuthorsForBook(book);
+		
+		if(AuthenticatorProc.getInstance().hasAccess(sessionID, "view Books"))
+		{
+			saveButton.setDisable(true);
+			deleteButton.setDisable(true);
+			addAuthorButton.setDisable(true);
+			bookTitle.setDisable(true);
+			bookISBN.setDisable(true);
+			bookSummary.setDisable(true);
+			yearPick.setDisable(true);
+			publisher.setDisable(true);
+		}
 		
 		updateLastSavedBookInfoValues();
 		initializeTable(authorList);

@@ -81,6 +81,16 @@ public class AuthorDetailController implements Initializable, Controller{
 		gender.setText("" + selectedAuthor.getGender());
 		website.setText(selectedAuthor.getWebSite());
 		
+		if(AuthenticatorProc.getInstance().hasAccess(sessionID, "view Books"))
+		{
+			firstName.setDisable(true);
+			lastName.setDisable(true);
+			dob.setDisable(true);
+			gender.setDisable(true);
+			website.setDisable(true);
+			royalty.setDisable(true);
+		}
+		
 	}
 	public void saveAuthor() throws ParseException
 	{
