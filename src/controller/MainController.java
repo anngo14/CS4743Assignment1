@@ -13,6 +13,7 @@ import authenticate.LoginDialog;
 import authenticate.LoginException;
 import controller.BookDetailController.AlertManager;
 import controller.BookDetailController.BookDetailController;
+import gateway.AuthorTableGateway;
 import gateway.BookTableGateway;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,10 +26,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Pair;
+import model.Author;
 import model.AuthorBook;
 import model.Book;
 
-public class MainController {
+public class MainController implements Controller {
 	
 	private static Logger logger = LogManager.getLogger();
 	private static MainController instance = null;
@@ -43,6 +45,10 @@ public class MainController {
 	@FXML
 	MenuItem addBook;
 	@FXML
+	MenuItem authorList;
+	@FXML
+	MenuItem addAuthor;
+	@FXML
 	MenuItem quit;
 	@FXML
 	MenuItem login;
@@ -52,7 +58,6 @@ public class MainController {
 	Menu userText;
 	
 	private MainController() {
-		auth = new AuthenticatorProc();
 		
 		sessionId = Authenticator.INVALID_SESSION;
 	}
@@ -68,13 +73,18 @@ public class MainController {
 	void changeView(ActionEvent event) 
 	{
 		if (event.getSource() == bookList) {
-			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionId));
+			changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionId), Optional.empty());
 		} else if (event.getSource() == addBook) {
-			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()), Optional.empty(), Optional.of(sessionId));
-		} 
+			changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(new Book()), Optional.empty(), Optional.of(sessionId),Optional.empty());
+		} else if (event.getSource() == authorList) {
+			changeView(ViewType.AUTHOR_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionId), Optional.empty());
+		} else if( event.getSource() == addAuthor) {
+			changeView(ViewType.AUTHOR_NEW_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionId), Optional.of(new Author()));
+
+		}
 	}
 	
-	public void changeView(ViewType viewType, Optional<Book> book, Optional<AuthorBook> authorBook, Optional<Integer> session) 
+	public void changeView(ViewType viewType, Optional<Book> book, Optional<AuthorBook> authorBook, Optional<Integer> session, Optional<Author> author) 
 	{
 		if (!isViewChangeAuthorized())
 		{
@@ -84,6 +94,14 @@ public class MainController {
 		Controller controller = null;
 		switch(viewType) 
 		{
+			case BLANK_VIEW:
+				viewName = "/view/Blank.fxml";
+				controller = new BlankController();
+				break;
+			case AUTHOR_LIST_VIEW:
+				viewName = "/view/BookListView.fxml";
+				controller = new AuthorListController(AuthorTableGateway.getInstance().getAuthors(), session.get());
+				break;
 			case BOOK_DETAILED_VIEW:
 				viewName = "/view/BookDetailedView.fxml";
 				controller = new BookDetailController(book.get(), session.get());
@@ -96,7 +114,15 @@ public class MainController {
 				viewName = "/view/AuditTrailView.fxml";
 				controller = new AuditTrailController(book.get());
 				break;
+			case AUTHOR_NEW_VIEW:
+				viewName = "/view/AuthorDetailView.fxml";
+				controller = new AuthorDetailController(author.get(), session.get());
+				break;
 			case AUTHOR_DETAIL_VIEW:
+				viewName = "/view/AuthorDetailView.fxml";
+				controller = new AuthorDetailController(author.get(), session.get());
+				break;
+			case AUTHORBOOK_DETAIL_VIEW:
 				viewName = "/view/AuthorDetailView.fxml";
 				controller = new AuthorDetailController(book.get(), authorBook.get(), session.get());
 				break;
@@ -169,11 +195,10 @@ public class MainController {
 		String userName = creds.getKey();
 		String pw = creds.getValue();
 		
-		System.out.println("User = " + userName + "\n" + "Pass = " + pw + "\n");
 		String pwHash = Sha.sha256(pw);
 		
 		try {
-			sessionId = auth.loginSha256(userName, pwHash);
+			sessionId = AuthenticatorProc.getInstance().loginSha256(userName, pwHash);
 		} catch (LoginException e)
 		{
 			Alert alert = new Alert(AlertType.WARNING);
@@ -186,6 +211,7 @@ public class MainController {
 
 			return;
 		}
+		userText.setText(AuthenticatorProc.getInstance().getUserNameFromSessionId(sessionId));
 		updateGUI();
 	}
 	
@@ -193,6 +219,9 @@ public class MainController {
 	public void logoutAction()
 	{
 		sessionId = Authenticator.INVALID_SESSION;
+		changeView(ViewType.BLANK_VIEW, Optional.empty(), Optional.empty(), Optional.empty(),Optional.empty());
+		userText.setText(AuthenticatorProc.getInstance().getUserNameFromSessionId(sessionId));
+
 		updateGUI();
 	}
 	
@@ -204,19 +233,28 @@ public class MainController {
 			logout.setDisable(true);
 			addBook.setDisable(true);
 			bookList.setDisable(true);
+			addAuthor.setDisable(true);
+			authorList.setDisable(true);
 		}
 		else
 		{
 			login.setDisable(true);
 			logout.setDisable(false);
 			
+			if(sessionId == 1 || sessionId == 2)
+			{
+				addBook.setDisable(false);
+				bookList.setDisable(false);
+				authorList.setDisable(false);
+				addAuthor.setDisable(false);
+			}
 			if(sessionId == 3)
 			{
-				addBook.setDisable(true);
+				bookList.setDisable(false);
+				authorList.setDisable(false);
 			}
 		}
 		
-		//userText.setText(auth.getUserNameFromSessionId(sessionId));
 	}
 	public BorderPane getBorderPane() 
 	{
@@ -230,7 +268,7 @@ public class MainController {
 	
 	public void initialize()
 	{
-		//updateGUI();
+		updateGUI();
 	}
 	
 }

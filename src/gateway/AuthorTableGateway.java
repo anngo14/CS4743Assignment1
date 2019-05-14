@@ -78,7 +78,18 @@ public class AuthorTableGateway {
 		}
 		return authors;
 	}
-	
+	public void deleteAuthor(Author author)
+	{
+		PreparedStatement statement = null;
+		try {
+			String query = "DELETE FROM Author WHERE id = ?";
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, author.getId());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public void saveAuthor(Author author)
 	{
 		PreparedStatement preparedStatement = null;

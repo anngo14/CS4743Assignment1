@@ -6,7 +6,6 @@ public abstract class Authenticator {
 	
 	public abstract boolean hasAccess(int sessionId, String f);
 	public abstract int loginSha256(String l, String pwHash) throws LoginException;
-	public abstract void logout(int sessionId);
 	public abstract String getUserNameFromSessionId(int sessionId);
 
 	

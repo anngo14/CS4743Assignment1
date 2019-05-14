@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text layoutX="27.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Author Details">
@@ -38,7 +37,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="517.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Royalty:" wrappingWidth="124.505859375">
+      <Text fx:id="royaltyText" layoutX="517.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Royalty:" wrappingWidth="124.505859375">
          <font>
             <Font size="36.0" />
          </font>

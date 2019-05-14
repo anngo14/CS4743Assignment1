@@ -1,8 +1,12 @@
 package authenticate;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import com.mysql.jdbc.CallableStatement;
+import authenticate.LoginException;
+
 
 public class AuthenticatorProc extends Authenticator{
 
@@ -23,26 +27,72 @@ public class AuthenticatorProc extends Authenticator{
 	}
 	@Override
 	public boolean hasAccess(int sessionId, String f) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean out = false;
+		String result = "";
+		CallableStatement call = null;
+		try {
+			call = connection.prepareCall("{ call accessRole(?)}");
+			call.setInt(1, sessionId);
+			ResultSet rs = call.executeQuery();
+			while(rs.next())
+			{
+				result = rs.getString("output");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String[] functions = result.split("/");
+		for(int i = 0; i < functions.length; i++)
+		{
+			if(functions[i].compareTo(f) == 0)
+			{
+				out = true;
+			}
+		}
+		return out;
 	}
 
 	@Override
 	public int loginSha256(String l, String pwHash) throws LoginException {
-		CallableStatement call;
-		return 0;
-	}
-
-	@Override
-	public void logout(int sessionId) {
-		// TODO Auto-generated method stub
+		int id = 0;
+		CallableStatement call = null;
+		try {
+			call = connection.prepareCall("{ call checkUser(?,?)}");
+			call.setString(1, l);
+			call.setString(2, pwHash);
+			
+			ResultSet rs = call.executeQuery();
+			while(rs.next())
+			{
+				id = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		if(id == -1)
+		{
+			throw new LoginException("Authentication failed");
+		}
+		return id;
 	}
 
 	@Override
 	public String getUserNameFromSessionId(int sessionId) {
-		// TODO Auto-generated method stub
-		return null;
+		String output = "";
+		CallableStatement call = null;
+		try {
+			call = connection.prepareCall("{ call sessionUser(?)}");
+			call.setInt(1, sessionId);
+			ResultSet rs = call.executeQuery();
+			while(rs.next())
+			{
+				output = rs.getString("user");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 	public Connection getConnection()
 	{

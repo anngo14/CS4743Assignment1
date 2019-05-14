@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import authenticate.AuthenticatorProc;
 import controller.Controller;
 import controller.MainController;
 import controller.ViewType;
@@ -86,7 +87,7 @@ public class BookDetailController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-		if(sessionID == 3)
+		if(AuthenticatorProc.getInstance().hasAccess(sessionID, "view Books"))
 		{
 			saveButton.setDisable(true);
 			deleteButton.setDisable(true);
@@ -206,12 +207,12 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void showAudit()
 	{
-		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book), Optional.empty(), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.AUDIT_TRAIL_VIEW, Optional.of(book), Optional.empty(), Optional.of(sessionID),Optional.empty());
 	}
 	
 	public void addAuthor()
 	{
-		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(new AuthorBook(book)), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.AUTHORBOOK_DETAIL_VIEW, Optional.of(book), Optional.of(new AuthorBook(book)), Optional.of(sessionID),Optional.empty());
 	}
 	
 	public void deleteAuthor()
@@ -234,6 +235,6 @@ public class BookDetailController implements Initializable, Controller {
 	
 	public void updateAuthorBook(AuthorBook authorBook)
 	{
-		MainController.getInstance().changeView(ViewType.AUTHOR_DETAIL_VIEW, Optional.of(book), Optional.of(authorBook), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.AUTHORBOOK_DETAIL_VIEW, Optional.of(book), Optional.of(authorBook), Optional.of(sessionID),Optional.empty());
 	}
 }

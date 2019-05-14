@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import authenticate.AuthenticatorProc;
 import controller.BookDetailController.AlertManager;
 import gateway.AuditTableGateway;
 import gateway.AuthorBookTableGateway;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import model.AuditTrailEntry;
 import model.Author;
 import model.AuthorBook;
@@ -41,6 +43,8 @@ public class AuthorDetailController implements Initializable, Controller{
 	TextField website;
 	@FXML
 	Button saveButton;
+	@FXML
+	Text royaltyText;
 	
 	public AuthorDetailController(Book book, AuthorBook authorBook, int id)
 	{
@@ -50,16 +54,30 @@ public class AuthorDetailController implements Initializable, Controller{
 		this.sessionID = id;
 	}
 
+	public AuthorDetailController(Author author, int id)
+	{
+		selectedAuthor = author;
+		sessionID = id;
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(sessionID == 3)
+		if(AuthenticatorProc.getInstance().hasAccess(sessionID, "view Authors"))
 		{
 			saveButton.setDisable(true);
+		}
+		
+		if(selectedBook == null)
+		{
+			royalty.setDisable(true);
+			royaltyText.setDisable(true);
+		}
+		if(selectedABook != null)
+		{
+			royalty.setText("" + selectedABook.getRoyalty()/100000);
 		}
 		firstName.setText(selectedAuthor.getFirstName());
 		lastName.setText(selectedAuthor.getLastName());
 		dob.setText("" + selectedAuthor.getDateOfBirth());
-		royalty.setText("" + selectedABook.getRoyalty()/100000);
 		gender.setText("" + selectedAuthor.getGender());
 		website.setText(selectedAuthor.getWebSite());
 		
@@ -83,6 +101,7 @@ public class AuthorDetailController implements Initializable, Controller{
 		Author temp = new Author(first, last, sqlDate, genChar[0], web);
 		temp.setId(selectedAuthor.getId());
 		
+		
 		if(selectedAuthor.getId() > 0)
 		{
 			AuthorTableGateway.getInstance().updateAuthor(temp);
@@ -91,6 +110,11 @@ public class AuthorDetailController implements Initializable, Controller{
 		{
 			if (!AuthorTableGateway.getInstance().authorExistsInAuthorTable(temp)) {
 				AuthorTableGateway.getInstance().saveAuthor(temp);
+			}
+			if(selectedBook == null || selectedABook == null)
+			{
+				MainController.getInstance().changeView(ViewType.AUTHOR_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionID),Optional.empty());
+				return;
 			}
 			AuditTrailEntry audit = new AuditTrailEntry();
 			audit.setMessage("New Author Added for " + selectedBook.getTitle());
@@ -114,7 +138,7 @@ public class AuthorDetailController implements Initializable, Controller{
 			
 			AuthorBookTableGateway.getInstance().updateAuthorBook(temp, selectedBook, Double.parseDouble(royal));
 		}	
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID),Optional.empty());
 	}
 	
 	public boolean isAuthorValid() {
@@ -133,6 +157,5 @@ public class AuthorDetailController implements Initializable, Controller{
 	
 	public void cancelSave()
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
-	}
+		MainController.getInstance().changeView(ViewType.AUTHOR_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionID), Optional.empty());	}
 }

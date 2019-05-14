@@ -21,6 +21,12 @@
               <MenuItem fx:id="addBook" mnemonicParsing="false" onAction="#changeView" text="Add Book" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Author">
+              <items>
+                <MenuItem fx:id="authorList" mnemonicParsing="false" onAction="#changeView" text="Author List" />
+                  <MenuItem fx:id="addAuthor" mnemonicParsing="false" onAction="#changeView" text="Add Author" />
+              </items>
+            </Menu>
           <Menu fx:id="quit" mnemonicParsing="false" onAction="#quitApplication" text="Quit">
             <items>
               <MenuItem fx:id="quit" mnemonicParsing="false" onAction="#quitApplication" text="Quit Application" />

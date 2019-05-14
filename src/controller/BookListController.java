@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.Logger;
 
+import authenticate.AuthenticatorProc;
 import gateway.AuditTableGateway;
 import gateway.BookTableGateway;
 
@@ -65,10 +66,11 @@ public class BookListController implements Initializable, Controller {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{	
-		if(sessionID == 3 || sessionID == 2) 
+		if(!AuthenticatorProc.getInstance().hasAccess(sessionID, "Modify Books"))
 		{
 			deleteButton.setDisable(true);
 		}
+		
 		title.setCellValueFactory(new PropertyValueFactory<>("Title"));
 		bookTable.setItems(FXCollections.observableArrayList(bookList));
 		bookTable.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -91,7 +93,7 @@ public class BookListController implements Initializable, Controller {
 	
 	private void handleDoubleClick(Book selectedBook) 
 	{
-		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.BOOK_DETAILED_VIEW, Optional.of(selectedBook), Optional.empty(), Optional.of(sessionID),Optional.empty());
 	}
 	
 	@FXML
@@ -101,7 +103,7 @@ public class BookListController implements Initializable, Controller {
 			return;
 		AuditTableGateway.getInstance().deleteAudit(selectedBook);
 		BookTableGateway.getInstance().deleteBook(selectedBook);
-		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionID));
+		MainController.getInstance().changeView(ViewType.BOOK_LIST_VIEW, Optional.empty(), Optional.empty(), Optional.of(sessionID),Optional.empty());
 		logger.info("Book record deleted: " + selectedBook.getTitle());
 	}
 	
